@@ -1,17 +1,76 @@
 html {
-  font-family: Open Sans, Helvetica, Arial, sans-serif;
-}
-
-h1 {
-  padding-top: 10%;
-  text-align: center;
-  font-size: 40px;
-  font-weight: 700;
-  /*color: #ffffff;*/
-  color: #303030;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 body {
-	background: url("../images/Dog.jpg") no-repeat center center fixed;;
-	background-size: cover;
+  margin: 0px;
+  color: #333333;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: default;
+}
+
+.header-panel {
+  height: 300px;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.title {
+  font-size: 2em;
+  margin-left: 8px;
+}
+
+.description {
+  font-size: 1.1em;
+}
+
+#portrait {
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("../images/Kevin_1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: ease 0.3s;
+}
+
+#portrait:hover {
+  background-image: url("../images/Kevin_2.png");
+}
+
+.info-panel {
+  text-align: center;
+}
+
+.icons {
+  font-size: 3em;
+}
+
+.icon-btn {
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+#icon-github:hover {
+  color: #888888;
+}
+
+#icon-linkedin:hover {
+  color: #0077B5;
+}
+
+#icon-steam:hover {
+  color: #555555;
+}
+
+#icon-email:hover {
+  color: rgb(232, 20, 21);
 }

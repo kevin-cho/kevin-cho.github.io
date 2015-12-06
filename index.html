@@ -7,10 +7,52 @@
     <meta charset="UTF-8">
     <link rel="icon" href="images/icons/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   </head>
   <body>
-    <h1>
-      ( ͡° ͜ʖ ͡°)
-    </h1>
+    <div class="header-panel">
+      <span class="title">
+        Kevin Cho
+      </span>
+      <br />
+      <span class="description">
+        Hello, World!
+      </span>
+      <br />
+      <div id="portrait"></div>
+    </div>
+    <div class="info-panel">
+      <div class="icons">
+        <a href="https://github.com/kevin-cho">
+          <i id="icon-github" class="fa fa-github-square icon-btn"></i>
+        </a>
+        <a href="http://www.linkedin.com/in/chokevinj">
+          <i id="icon-linkedin" class="fa fa-linkedin-square icon-btn"></i>
+        </a>
+        <a href="http://steamcommunity.com/id/meistercho/">
+          <i id="icon-steam" class="fa fa-steam-square icon-btn"></i>
+        </a>
+        <a href="mailto:chokevinj@gmail.com">
+          <i id="icon-email" class="fa fa-envelope-square icon-btn"></i>
+        </a>
+      </div>
+      <div id="link-description" class="description"></div>
+    </div>
   </body>
 </html>
+<script type="text/javascript">
+  $('#icon-github').hover(function() {
+    $('#link-description').html('Beware of awful high school code.')
+  })
+  $('#icon-linkedin').hover(function() {
+    $('#link-description').html('Work + education. My professional life.')
+  })
+  $('#icon-steam').hover(function() {
+    $('#link-description').html('I do have a life outside of school and work ;)')
+  })
+  $('#icon-email').hover(function() {
+    $('#link-description').html('Contact me if you wish, cheers.')
+  })
+</script>
