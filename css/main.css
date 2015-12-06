@@ -30,22 +30,6 @@ a {
   font-size: 1.1em;
 }
 
-#portrait {
-  width: 150px;
-  height: 150px;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("../images/Kevin_1.png");
-  transition: ease 0.3s;
-}
-
-#portrait:hover {
-  background-image: url("../images/Kevin_2.png");
-}
-
 .info-panel {
   text-align: center;
 }
