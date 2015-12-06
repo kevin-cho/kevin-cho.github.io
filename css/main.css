@@ -55,6 +55,10 @@ a {
   color: #555555;
 }
 
+#icon-hummingbird:hover {
+  color: rgb(253, 117, 50);
+}
+
 #icon-email:hover {
   color: rgb(232, 20, 21);
 }
