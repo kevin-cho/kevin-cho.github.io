@@ -19,6 +19,8 @@ a {
   height: 300px;
   text-align: center;
   padding-top: 100px;
+  background-color: #333333;
+  color: #FFFFFF;
 }
 
 .title {
