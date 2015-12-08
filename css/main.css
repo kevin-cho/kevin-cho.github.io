@@ -16,7 +16,7 @@ a {
 }
 
 .header-panel {
-  height: 300px;
+  height: 350px;
   text-align: center;
   padding-top: 100px;
   background-color: #333333;
@@ -67,7 +67,7 @@ a {
 
 /* Portrait flipping */
 .flip-container {
-  margin-top: 40px;
+  margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
   background-repeat: no-repeat;
