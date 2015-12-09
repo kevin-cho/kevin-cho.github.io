@@ -65,6 +65,10 @@ a {
   color: rgb(232, 20, 21);
 }
 
+img.preload-image {
+  display: none;
+}
+
 /* Portrait flipping */
 .flip-container {
   margin-top: 60px;
@@ -86,6 +90,7 @@ a {
   position: relative;
 }
 .flipper-front, .flipper-back {
+  background-size: 150px 150px;
   backface-visibility: hidden;
   position: absolute;
   top: 0;
