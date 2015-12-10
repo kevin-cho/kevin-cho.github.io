@@ -80,9 +80,6 @@ img.preload-image {
 .flip-container:hover .flipper {
   transform: rotateY(180deg);
 }
-/*.flip-container:not(:hover) .flipper-front {
-  background-image: url("../images/Kevin_1.png") !important;
-}*/
 .flip-container, .flipper-front, .flipper-back {
   width: 150px;
   height: 150px;
