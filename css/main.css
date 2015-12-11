@@ -6,7 +6,7 @@ html {
 
 body {
   margin: 0px;
-  color: #333333;
+  color: #333;
 }
 
 a {
@@ -19,8 +19,8 @@ a {
   height: 350px;
   text-align: center;
   padding-top: 100px;
-  background-color: #333333;
-  color: #FFFFFF;
+  background-color: #333;
+  color: #FFF;
 }
 
 .title {
@@ -46,7 +46,7 @@ a {
 }
 
 #icon-github:hover {
-  color: #888888;
+  color: #BBB;
 }
 
 #icon-linkedin:hover {
@@ -54,15 +54,15 @@ a {
 }
 
 #icon-steam:hover {
-  color: #555555;
+  color: #777;
 }
 
 #icon-hummingbird:hover {
-  color: rgb(253, 117, 50);
+  color: #FD7532;
 }
 
 #icon-email:hover {
-  color: rgb(232, 20, 21);
+  color: #E81415;
 }
 
 img.preload-image {
