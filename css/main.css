@@ -100,9 +100,9 @@ div.preload-panel {
 .flipper-front {
   z-index: 2;
   transform: rotateY(0deg);
-  background-image: url("../images/Kevin_1.png");
+  background-image: url("../images/kevin-1.png");
 }
 .flipper-back {
   transform: rotateY(180deg);
-  background-image: url("../images/Kevin_2.png");
+  background-image: url("../images/kevin-2.png");
 }
