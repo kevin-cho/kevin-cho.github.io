@@ -83,12 +83,12 @@ img.preload-image {
 .flip-container, .flipper-front, .flipper-back {
   width: 150px;
   height: 150px;
+  cursor: pointer;
 }
 .flipper {
   transition: 0.6s;
   transform-style: preserve-3d;
   position: relative;
-  cursor: pointer;
 }
 .flipper-front, .flipper-back {
   background-size: 150px 150px;
