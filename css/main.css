@@ -76,6 +76,8 @@ div.preload-panel {
   margin-right: auto;
   background-repeat: no-repeat;
   background-position: center;
+  z-index: 1;
+  perspective: 1000;
 }
 .flip-container:hover .flipper {
   transform: rotateY(180deg);
