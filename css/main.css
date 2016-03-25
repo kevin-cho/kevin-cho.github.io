@@ -29,7 +29,7 @@ a {
 }
 
 .description {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .info-panel {
@@ -98,6 +98,7 @@ div.preload-panel {
   position: absolute;
   top: 0;
   left: 0;
+  image-rendering: auto;
 }
 .flipper-front {
   z-index: 2;
