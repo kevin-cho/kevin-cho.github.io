@@ -23,6 +23,6 @@ $(document).ready(function() {
   });
 
   $('.flipper').mouseout(function() {
-    $('.flipper-front').css('background-image', 'url(images/kevin-1.png)');
+    $('.flipper-front').css('background-image', 'url(images/kevin-2.png)');
   });
 });
