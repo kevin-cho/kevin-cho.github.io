@@ -15,7 +15,7 @@ $(document).ready(function() {
   });
   $('#icon-hummingbird').hover(function() {
     $('#link-description').html('Many hours invested in watching anime.');
-    $('.flipper-front').css('background-image', 'url(images/octocat/saketocat-circle.png)');
+    $('.flipper-front').css('background-image', 'url(images/hummingbird-logo.png)');
   });
   $('#icon-email').hover(function() {
     $('#link-description').html('Contact me if you wish, cheers.');
