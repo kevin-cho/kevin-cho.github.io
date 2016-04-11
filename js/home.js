@@ -19,7 +19,7 @@ $(document).ready(function() {
   });
   $('#icon-email').hover(function() {
     $('#link-description').html('Contact me if you wish, cheers.');
-    $('.flipper-front').css('background-image', 'url(images/octocat/supportcat-circle.png)');
+    $('.flipper-front').css('background-image', 'url(images/mail-logo.png)');
   });
 
   $('.flipper').mouseout(function() {
