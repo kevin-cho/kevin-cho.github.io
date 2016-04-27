@@ -46,7 +46,7 @@ a {
 }
 
 #icon-github:hover {
-  color: #BBB;
+  color: #666;
 }
 
 #icon-linkedin:hover {
@@ -54,7 +54,7 @@ a {
 }
 
 #icon-steam:hover {
-  color: #777;
+  color: #144C7F;
 }
 
 #icon-hummingbird:hover {
@@ -107,5 +107,5 @@ div.preload-panel {
 }
 .flipper-back {
   transform: rotateY(180deg);
-  background-image: url("../images/resume1-black.png");
+  background-image: url("../images/resume-logo.png");
 }
