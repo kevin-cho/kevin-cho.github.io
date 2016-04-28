@@ -99,7 +99,6 @@ div.preload-panel {
   position: absolute;
   top: 0;
   left: 0;
-  image-rendering: auto;
 }
 .flipper-front {
   z-index: 2;
