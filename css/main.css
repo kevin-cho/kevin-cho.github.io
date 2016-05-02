@@ -16,9 +16,8 @@ a {
 }
 
 .header-panel {
-  height: 400px;
+  height: 500px;
   text-align: center;
-  padding-top: 100px;
   background-color: #333;
   color: #FFF;
 }
@@ -66,12 +65,21 @@ a {
   color: #E81415;
 }
 
+#icon-mushroom {
+  float: right;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  margin: 20px;
+}
+
 div.preload-panel {
   display: none;
 }
 
 /* Portrait flipping */
 .flip-container {
+  padding-top: 100px;
   margin-bottom: 85px;
   margin-left: auto;
   margin-right: auto;
