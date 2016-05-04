@@ -1,8 +1,8 @@
 (function() {
   "use strict";
 
-  var fadeOutVal = 150;
-  var fadeInVal = 250;
+  var fadeOutVal = 100;
+  var fadeInVal = 200;
 
   function changeOnMouseover(text, image) {
     $('#link-description').html(text);
