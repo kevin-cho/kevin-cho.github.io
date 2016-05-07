@@ -3,6 +3,8 @@
 
   var fadeOutVal = 100;
   var fadeInVal = 200;
+  var responseWidth = 550;
+  var slideVal = 750;
   var colour = {
     white: '#FFF',
     black: '#333'
@@ -91,7 +93,7 @@
   }
 
   function checkWidth() {
-    if ($(window).width() < 550) {
+    if ($(window).width() < responseWidth) {
       $('#tab-infomax').html('I');
       $('#tab-qualicom').html('Q');
       $('#tab-crosschasm').html('C');
@@ -128,7 +130,7 @@
     $('.tab-panel > div').click(function() {
       if (!workPanelSlide) {
         workPanelSlide = true;
-        $('.work-panel').slideDown(1000);
+        $('.work-panel').slideDown(slideVal);
       }
 
       resetTabStyle();
