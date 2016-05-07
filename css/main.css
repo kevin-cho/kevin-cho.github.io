@@ -15,11 +15,63 @@ a {
   cursor: default;
 }
 
+.preload-panel {
+  display: none;
+}
+
 .header-panel {
-  height: 500px;
+  height: 550px;
   text-align: center;
   background-color: #333;
   color: #FFF;
+}
+
+.link-panel {
+  text-align: center;
+  padding: 50px;
+}
+
+.tab-panel {
+  height: 50px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-panel > div {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.tab-panel > div:hover {
+  border-bottom: 2px solid #333;
+  border-radius: 0px;
+}
+
+.work-panel {
+  height: 350px;
+  text-align: center;
+  display: none;
+  font-family: 'Roboto';
+}
+
+.work-panel > .work-title {
+  font-size: 1.5em;
+  padding-top: 50px;
+}
+
+.work-panel > .work-title-sub {
+  font-size: 1.2em;
+  color: #666;
+  padding-top: 10px;
+}
+
+.work-panel > .description {
+  padding-top: 50px;
 }
 
 .title {
@@ -31,14 +83,9 @@ a {
   font-size: 1em;
 }
 
-.info-panel {
-  text-align: center;
-  padding: 50px;
-}
-
 .icons {
   font-size: 3em;
-  padding-bottom: 5px;
+  padding: 10px;
 }
 
 .icon-btn {
@@ -72,10 +119,6 @@ a {
   height: 50px;
   cursor: pointer;
   margin: 20px;
-}
-
-div.preload-panel {
-  display: none;
 }
 
 /* Portrait flipping */
