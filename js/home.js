@@ -12,25 +12,29 @@
       title: 'InfoMax Technologies',
       shorttitle: 'INFOMAX',
       sub: 'Junior Programmer',
-      description: 'Work in progress.'
+      description: 'Work in progress.',
+      url: 'http://www.e-infomax.com/'
     },
     qualicom: {
       title: 'Qualicom Innovations',
       shorttitle: 'QUALICOM',
       sub: 'Programmer Trainee',
-      description: 'Work in progress.'
+      description: 'Work in progress.',
+      url: 'http://www.qualicom.com/'
     },
     crosschasm: {
       title: 'CrossChasm Technologies',
       shorttitle: 'CROSSCHASM',
       sub: '.NET Application Developer',
-      description: 'Work in progress.'
+      description: 'Work in progress.',
+      url: 'http://www.crosschasm.com/'
     },
     visioncritical: {
       title: 'Vision Critical Communications',
       shorttitle: 'VISIONCRITICAL',
       sub: 'Software Developer',
-      description: 'Work in progress.'
+      description: 'Work in progress.',
+      url: 'https://www.visioncritical.com/'
     }
   };
   var linkInfo = {
@@ -79,7 +83,7 @@
   function setWorkInfo(info) {
     var changeElement = $('.work-title, .work-title-sub, .work-panel > .description');
     changeElement.fadeOut(fadeOutVal, function() {
-      $('.work-title').html(info.title);
+      $('.work-title').html('<a href="' + info.url + '" class="work-link">' + info.title + '</a>');
       $('.work-title-sub').html(info.sub);
       $('.work-panel > .description').html(info.description);
     });
@@ -98,7 +102,7 @@
       $('#tab-crosschasm').html(workInfo.crosschasm.shorttitle);
       $('#tab-visioncritical').html(workInfo.visioncritical.shorttitle);
     }
-  };
+  }
 
   $(document).ready(function() {
     $('#icon-github').mouseover(function() {

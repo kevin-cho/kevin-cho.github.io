@@ -74,6 +74,10 @@ a {
   padding-top: 50px;
 }
 
+.work-link {
+  cursor: pointer;
+}
+
 .title {
   font-size: 2.5em;
   margin-left: 8px;
