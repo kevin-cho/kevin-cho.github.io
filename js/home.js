@@ -61,7 +61,7 @@
       image: 'mail-logo.png'
     }
   };
-  var workPanelSlide = false;
+  var lastTab = null;
 
   function changeOnMouseover(text, image) {
     $('#link-description').html(text);
@@ -128,30 +128,37 @@
     });
 
     $('.tab-panel > div').click(function() {
-      if (!workPanelSlide) {
-        workPanelSlide = true;
-        $('.work-panel').slideDown(slideVal);
-      }
-
       resetTabStyle();
-      setTabFocusStyle($(this));
 
       var tabId = $(this).attr('id');
-      switch (tabId) {
-        case 'tab-infomax':
-          setWorkInfo(workInfo.infomax);
-          break;
-        case 'tab-qualicom':
-          setWorkInfo(workInfo.qualicom);
-          break;
-        case 'tab-crosschasm':
-          setWorkInfo(workInfo.crosschasm);
-          break;
-        case 'tab-visioncritical':
-          setWorkInfo(workInfo.visioncritical);
-          break;
-        default:
-          console.log('Error: Tab "' + tabId + '" does not exist.');
+
+      if (lastTab == tabId) {
+        $('.work-panel').slideUp(slideVal);
+        lastTab = null;
+      } else {
+        setTabFocusStyle($(this));
+
+        if (lastTab == null) {
+          $('.work-panel').slideDown(slideVal);
+        }
+        lastTab = tabId;
+
+        switch (tabId) {
+          case 'tab-infomax':
+            setWorkInfo(workInfo.infomax);
+            break;
+          case 'tab-qualicom':
+            setWorkInfo(workInfo.qualicom);
+            break;
+          case 'tab-crosschasm':
+            setWorkInfo(workInfo.crosschasm);
+            break;
+          case 'tab-visioncritical':
+            setWorkInfo(workInfo.visioncritical);
+            break;
+          default:
+            console.log('Error: Tab "' + tabId + '" does not exist.');
+        }
       }
     });
 
