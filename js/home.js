@@ -128,14 +128,13 @@
     });
 
     $('.tab-panel > div').click(function() {
-      resetTabStyle();
-
       var tabId = $(this).attr('id');
 
       if (lastTab == tabId) {
-        $('.work-panel').slideUp(slideVal);
+        $('.work-panel').slideUp(slideVal, resetTabStyle);
         lastTab = null;
       } else {
+        resetTabStyle();
         setTabFocusStyle($(this));
 
         if (lastTab == null) {
