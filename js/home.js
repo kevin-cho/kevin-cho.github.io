@@ -14,7 +14,7 @@
       title: 'InfoMax Technologies',
       shorttitle: 'INFOMAX',
       sub: 'Junior Programmer',
-      description: 'Work in progress.',
+      description: 'This was my very first job. Nervous yet determined, I was ready to learn. It was the first time I was exposed to web development and there was a lot to absorb. After some time self-studying and receiving help from friendly co-workers, I quickly got into the groove and became an asset to the team.',
       url: 'http://www.e-infomax.com/'
     },
     qualicom: {
