@@ -54,8 +54,9 @@ a {
 
 .work-panel {
   height: 350px;
+  padding-top: 50px;
   text-align: center;
-  display: none;
+  /* display: none; */
   font-family: 'Roboto';
 }
 
@@ -80,6 +81,26 @@ a {
 
 .work-link {
   cursor: pointer;
+}
+
+.tile {
+  width: 200px;
+  height: 300px;
+  margin: 10px;
+  color: #FFF;
+  background-color: rgba(51, 51, 51, 0.9);
+  transition: background-color 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.tile:hover {
+  background-color: rgba(51, 51, 51, 1);
+}
+
+.work-title {
+  font-size: 1.3em;
 }
 
 .title {
