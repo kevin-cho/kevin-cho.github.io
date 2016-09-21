@@ -1,14 +1,6 @@
 (function() {
   "use strict";
 
-  var fadeOutVal = 100;
-  var fadeInVal = 200;
-  var responseWidth = 550;
-  var slideVal = 750;
-  var colour = {
-    white: '#FFF',
-    black: '#333'
-  };
   var workInfo = {
     infomax: {
       title: 'InfoMax Technologies',
@@ -41,127 +33,19 @@
   };
   var linkInfo = {
     github: {
-      description: 'Beware of awful high school code.',
-      image: 'github-logo.png'
+      description: 'Beware of awful high school code.'
     },
     linkedin: {
-      description: 'Work + education. My professional life.',
-      image: 'formal-logo.png'
+      description: 'Work + education. My professional life.'
     },
     steam: {
-      description: 'I do have a life outside of school and work ;)',
-      image: 'gaming-logo.png'
+      description: 'I do have a life outside of school and work ;)'
     },
     hummingbird: {
-      description: 'Many hours invested in watching anime.',
-      image: 'hummingbird-logo.png'
+      description: 'Many hours invested in watching anime.'
     },
     email: {
-      description: 'Contact me if you wish, cheers.',
-      image: 'mail-logo.png'
+      description: 'Contact me if you wish, cheers.'
     }
   };
-  var lastTab = null;
-
-  function changeOnMouseover(text, image) {
-    $('#link-description').html(text);
-    
-    $('.flipper-front').fadeOut(fadeOutVal, function() {
-      $('.flipper-front').css('background-image', 'url(images/' + image + ')');
-    });
-    $('.flipper-front').fadeIn(fadeInVal);
-  }
-
-  function resetTabStyle() {
-    $('.tab-panel > div').css('background-color', colour.white);
-    $('.tab-panel > div').css('color', colour.black);
-  }
-
-  function setTabFocusStyle(element) {
-    element.css('background-color', colour.black);
-    element.css('color', colour.white);
-  }
-
-  function setWorkInfo(info) {
-    var changeElement = $('.work-title, .work-title-sub, .work-panel > .description');
-    changeElement.fadeOut(fadeOutVal, function() {
-      $('.work-title').html('<a href="' + info.url + '" class="work-link">' + info.title + '</a>');
-      $('.work-title-sub').html(info.sub);
-      $('.work-panel > .description').html(info.description);
-    });
-    changeElement.fadeIn(fadeInVal);
-  }
-
-  function checkWidth() {
-    if ($(window).width() < responseWidth) {
-      $('#tab-infomax').html('I');
-      $('#tab-qualicom').html('Q');
-      $('#tab-crosschasm').html('C');
-      $('#tab-visioncritical').html('V');
-    } else {
-      $('#tab-infomax').html(workInfo.infomax.shorttitle);
-      $('#tab-qualicom').html(workInfo.qualicom.shorttitle);
-      $('#tab-crosschasm').html(workInfo.crosschasm.shorttitle);
-      $('#tab-visioncritical').html(workInfo.visioncritical.shorttitle);
-    }
-  }
-
-  $(document).ready(function() {
-    $('#icon-github').mouseover(function() {
-      changeOnMouseover(linkInfo.github.description, linkInfo.github.image);
-    });
-    $('#icon-linkedin').mouseover(function() {
-      changeOnMouseover(linkInfo.linkedin.description, linkInfo.linkedin.image);
-    });
-    $('#icon-steam').mouseover(function() {
-      changeOnMouseover(linkInfo.steam.description, linkInfo.steam.image);
-    });
-    $('#icon-hummingbird').mouseover(function() {
-      changeOnMouseover(linkInfo.hummingbird.description, linkInfo.hummingbird.image);
-    });
-    $('#icon-email').mouseover(function() {
-      changeOnMouseover(linkInfo.email.description, linkInfo.email.image);
-    });
-
-    $('.flipper').mouseout(function() {
-      $('.flipper-front').css('background-image', 'url(images/kevin-2.png)');
-    });
-
-    $('.tab-panel > div').click(function() {
-      var tabId = $(this).attr('id');
-
-      if (lastTab == tabId) {
-        $('.work-panel').slideUp(slideVal, resetTabStyle);
-        lastTab = null;
-      } else {
-        resetTabStyle();
-        setTabFocusStyle($(this));
-
-        if (lastTab == null) {
-          $('.work-panel').slideDown(slideVal);
-        }
-        lastTab = tabId;
-
-        switch (tabId) {
-          case 'tab-infomax':
-            setWorkInfo(workInfo.infomax);
-            break;
-          case 'tab-qualicom':
-            setWorkInfo(workInfo.qualicom);
-            break;
-          case 'tab-crosschasm':
-            setWorkInfo(workInfo.crosschasm);
-            break;
-          case 'tab-visioncritical':
-            setWorkInfo(workInfo.visioncritical);
-            break;
-          default:
-            console.log('Error: Tab "' + tabId + '" does not exist.');
-        }
-      }
-    });
-
-    checkWidth();
-    $(window).resize(checkWidth);
-  });
 })();
