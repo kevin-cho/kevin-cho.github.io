@@ -5,11 +5,38 @@ body {
   width: 100%;
   height: 100%;
   color: #333;
+
+  -webkit-animation: fadein 1.5s;
+     -moz-animation: fadein 1.5s;
+      -ms-animation: fadein 1.5s;
+       -o-animation: fadein 1.5s;
+          animation: fadein 1.5s;
 }
 
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@-o-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 header {
