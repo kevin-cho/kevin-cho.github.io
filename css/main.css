@@ -65,7 +65,7 @@ header nav li {
           transition: border 0.2s ease-out, color 0.2s ease-out;
 }
 header nav li:hover {
-  color: #8EFAB4;
+  color: #FFD700;
   border-bottom: 1px solid;
 }
 header nav li a {
