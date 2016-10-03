@@ -105,7 +105,8 @@ footer a {
 
 .title-panel {
   margin: 0 auto;
-  width: 600px;
+  padding: 0 15px;
+  max-width: 600px;
 }
 
 .title-name {
