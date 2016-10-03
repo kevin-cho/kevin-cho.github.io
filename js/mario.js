@@ -15,32 +15,62 @@
 
     $(document).keydown(function(e) {
         // Space key
-        if (e.which == 32) {
-            if (!isKeyDown) {
-                $("#gameSprite").attr("src", imgMarioBasicJump);
-                spriteJump();
-
-                $("#gameItem").attr("src", getItem());
-                toggleItem();
-
-                isKeyDown = true;
-            }
-            return false;
+        if (e.which == 32 && !isKeyDown) {
+            jump();
         }
+        return false;
     });
 
     $(document).keyup(function(e) {
         // Space key
-        if (e.which == 32) {
-            $("#gameSprite").attr("src", imgMarioBasicStand);
-            spriteStand();
-
-            toggleItem();
-
-            isKeyDown = false;
-            return false;
+        if (e.which == 32 && isKeyDown) {
+            stand();
         }
+        return false;
     });
+
+    $(document).mousedown(function() {
+        if (!isKeyDown) {
+            jump();
+        }
+        return false;
+    });
+
+    $(document).mouseup(function() {
+        if (isKeyDown) {
+            stand();
+        }
+        return false;
+    });
+
+    function jump() {
+        var sprite = $("#gameSprite");
+        sprite.attr("src", imgMarioBasicJump);
+        sprite.removeClass("stand");
+        sprite.addClass("jump");
+
+        $("#gameItem").attr("src", getItem());
+        toggleItem();
+
+        isKeyDown = true;
+    }
+
+    function stand() {
+        var sprite = $("#gameSprite");
+        sprite.attr("src", imgMarioBasicStand);
+        sprite.removeClass("jump");
+        sprite.addClass("stand");
+
+        toggleItem();
+
+        isKeyDown = false;
+    }
+
+    function toggleItem() {
+        var item = $("#gameItem");
+        item.toggleClass("float");
+        item.toggleClass("land");
+    }
 
     function getItem() {
         var currentValue;
@@ -65,30 +95,6 @@
             default:
                 return imgCoin;
         }
-    }
-
-    function spriteJump() {
-        var sprite = $("#gameSprite");
-        sprite.removeClass("stand");
-        sprite.addClass("jump");
-    }
-
-    function spriteStand() {
-        var sprite = $("#gameSprite");
-        sprite.removeClass("jump");
-        sprite.addClass("stand");
-    }
-
-    function toggleItemBlock() {
-        var block = $("#gameItemBlock");
-        block.toggleClass("static");
-        block.toggleClass("hit");
-    }
-
-    function toggleItem() {
-        var item = $("#gameItem");
-        item.toggleClass("float");
-        item.toggleClass("land");
     }
 })();
 
