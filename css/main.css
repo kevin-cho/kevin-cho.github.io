@@ -88,6 +88,10 @@ footer a {
   text-transform: uppercase;
 }
 
+.cursive {
+  font-family: Pacifico;
+}
+
 .logo {
   background-image: url("../images/kevin.png");
   background-repeat: no-repeat;
@@ -100,14 +104,20 @@ footer a {
 }
 
 .title-panel {
-  text-align: center;
+  margin: 0 auto;
+  width: 600px;
 }
 
 .title-name {
   font-size: 5em;
-  font-weight: bold;
   letter-spacing: 0.2em;
-  margin-right: -15px;
+  margin: 0;
+}
+
+.title-separator {
+  margin: 50px 0;
+  border: 0;
+  border-top: 1px solid black;
 }
 
 .icon-btn {
