@@ -1,7 +1,8 @@
 :root {
   --border-ease: border 0.2s ease-out;
-  --colour-ease: color 0.2s ease-out;
+  --colour-ease: color 0.2s ease;
   --fade-in: fadein 1.5s;
+  --logo-size: 140px;
 }
 
 body {
@@ -20,8 +21,18 @@ body {
 }
 
 a {
-  color: inherit;
+  color: gold;
   text-decoration: inherit;
+  border-bottom: 2px solid transparent;
+
+  -webkit-transition: var(--border-ease);
+     -moz-transition: var(--border-ease);
+       -o-transition: var(--border-ease);
+      -ms-transition: var(--border-ease);
+          transition: var(--border-ease);
+}
+a:hover {
+  border-bottom: 2px solid;
 }
 
 p {
@@ -38,6 +49,12 @@ h2 {
   font-size: 2.5em;
   font-weight: normal;
   letter-spacing: 0.1em;
+}
+
+hr {
+  border: 0;
+  border-top: 3px solid black;
+  width: 500px;
 }
 
 @keyframes fadein {
@@ -61,53 +78,6 @@ h2 {
   to   { opacity: 1; }
 }
 
-header {
-  height: 100px;
-}
-header nav {
-  float: right;
-  text-align: center;
-}
-header nav ul {
-  margin: 0;
-  list-style: none;
-}
-header nav li {
-  float: left;
-  letter-spacing: 0.1em;
-  width: 100px;
-  line-height: 100px;
-  border-bottom: 2px solid transparent;
-
-  -webkit-transition: var(--border-ease), var(--colour-ease);
-     -moz-transition: var(--border-ease), var(--colour-ease);
-       -o-transition: var(--border-ease), var(--colour-ease);
-      -ms-transition: var(--border-ease), var(--colour-ease);
-          transition: var(--border-ease), var(--colour-ease);
-}
-header nav li:hover {
-  color: gold;
-  border-bottom: 2px solid;
-}
-header nav li a {
-  display: block;
-}
-
-footer {
-  height: 50px;
-}
-footer nav {
-  position: fixed;
-  display: block;
-  left: 15px;
-  bottom: 5px;
-  z-index: 9999;
-}
-footer nav a {
-  font-size: 2.3em;
-  cursor: default;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
@@ -116,43 +86,40 @@ footer nav a {
   font-family: Pacifico;
 }
 
-.uwaterloo-link {
-  -webkit-transition: var(--colour-ease);
-     -moz-transition: var(--colour-ease);
-       -o-transition: var(--colour-ease);
-      -ms-transition: var(--colour-ease);
-          transition: var(--colour-ease);
+.invert {
+  background-color: #222;
+  color: white;
 }
 
-.uwaterloo-link:hover {
-  color: gold;
+.wrapper {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 600px;
 }
 
 .logo {
   background-image: url("../images/kevin.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 75px 75px;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  display: block;
+  background-size: var(--logo-size);
+  width: var(--logo-size);
+  height: var(--logo-size);
+  display: inline-block;
+  margin: 0 15px 0 25px;
 }
 
 .title-panel {
-  margin: 0 auto;
-  padding: 0 15px;
-  max-width: 600px;
+  text-align: center;
+}
+
+.title-info {
+  text-align: initial;
+  display: inline-block;
 }
 
 .title-name {
   margin: 0;
-}
-
-.title-separator {
-  margin: 60px 0;
-  border: 0;
-  border-top: 2px solid black;
+  line-height: 62pt;
 }
 
 .icon-btn {
