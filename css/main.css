@@ -45,7 +45,7 @@ h2 {
 hr {
   border: 0;
   border-top: 3px solid black;
-  width: 500px;
+  max-width: 500px;
 }
 
 @keyframes fadein {
