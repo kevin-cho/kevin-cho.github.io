@@ -21,18 +21,8 @@ body {
 }
 
 a {
-  color: gold;
+  color: inherit;
   text-decoration: inherit;
-  border-bottom: 2px solid transparent;
-
-  -webkit-transition: var(--border-ease);
-     -moz-transition: var(--border-ease);
-       -o-transition: var(--border-ease);
-      -ms-transition: var(--border-ease);
-          transition: var(--border-ease);
-}
-a:hover {
-  border-bottom: 2px solid;
 }
 
 p {
@@ -89,6 +79,20 @@ hr {
 .invert {
   background-color: #222;
   color: white;
+}
+
+.link {
+  color: gold;
+  border-bottom: 2px solid transparent;
+
+  -webkit-transition: var(--border-ease);
+     -moz-transition: var(--border-ease);
+       -o-transition: var(--border-ease);
+      -ms-transition: var(--border-ease);
+          transition: var(--border-ease);
+}
+.link:hover {
+  border-bottom: 2px solid;
 }
 
 .wrapper {
