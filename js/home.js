@@ -3,7 +3,8 @@
 
   $(document).ready(function() {
     $('#fullpage').fullpage({
-      navigation: true
+      navigation: true,
+      keyboardScrolling: false
     });
   });
 })();
