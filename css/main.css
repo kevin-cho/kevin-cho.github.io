@@ -102,15 +102,43 @@ hr {
   max-width: 600px;
 }
 
-.logo {
-  background-image: url("../images/kevin.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: var(--logo-size);
+/* Flipping logo */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+}
+.logo,
+.logo-front,
+.logo-back {
   width: var(--logo-size);
   height: var(--logo-size);
   display: inline-block;
+  cursor: pointer;
+}
+.logo-front,
+.logo-back {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--logo-size);
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+}
+.logo {
+  position: relative;
   margin: 0 15px 0 25px;
+}
+.logo:hover .flipper {
+  transform: rotateY(180deg);
+}
+.logo-front {
+  background-image: url("../images/kevin.png");
+  transform: rotateY(0deg);
+}
+.logo-back {
+  background-image: url("../images/kevin-cartoon.png");
+  transform: rotateY(180deg);
 }
 
 .title-panel {
