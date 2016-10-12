@@ -4,7 +4,9 @@
   $(document).ready(function() {
     $('#fullpage').fullpage({
       navigation: true,
-      keyboardScrolling: false
+      keyboardScrolling: false,
+      loopTop: true,
+      loopBottom: true
     });
   });
 })();
