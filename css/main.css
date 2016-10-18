@@ -69,6 +69,15 @@ hr {
   to   { opacity: 1; }
 }
 
+nav {
+  position: fixed;
+  bottom: 5px;
+  left: 8px;
+}
+nav a {
+  cursor: default;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -113,7 +122,6 @@ hr {
   width: var(--logo-size);
   height: var(--logo-size);
   display: inline-block;
-  cursor: pointer;
 }
 .logo-front,
 .logo-back {
@@ -162,6 +170,9 @@ hr {
       -ms-transition: var(--colour-ease);
           transition: var(--colour-ease);
   cursor: pointer;
+  font-size: 2em !important;
+  margin: 3px;
+  color: #444;
 }
 
 #icon-github:hover {
@@ -170,14 +181,6 @@ hr {
 
 #icon-linkedin:hover {
   color: #0077B5;
-}
-
-#icon-steam:hover {
-  color: #144C7F;
-}
-
-#icon-hummingbird:hover {
-  color: #EE5323;
 }
 
 #icon-email:hover {
