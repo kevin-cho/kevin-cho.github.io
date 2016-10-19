@@ -3,10 +3,20 @@
 
   $(document).ready(function() {
     $('#fullpage').fullpage({
-      navigation: true,
-      keyboardScrolling: false,
-      loopTop: true,
-      loopBottom: true
+      anchors: ['Home', 'About', 'Interests'],
+      slidesNavigation: true,
+      recordHistory: false,
+
+      onLeave: function(index, nextIndex, direction) {
+        if (index === 1) {
+          $('.icon-btn').css('color', '#FFF');
+        }
+      },
+      afterLoad: function(anchorLink, index) {
+        if (index === 1) {
+          $('.icon-btn').css('color', '#333');
+        }
+      }
     });
   });
 })();

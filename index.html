@@ -12,6 +12,7 @@
     <link rel="icon" href="images/icons/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/narrow.css" media="screen and (max-width: 550px)">
+    <link rel="stylesheet" type="text/css" href="css/medium.css" media="screen and (max-width: 680px)">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pacifico">
@@ -24,8 +25,8 @@
   </head>
   <body>
     <div id="fullpage">
-      <div class="section">
-        <div class="wrapper title-panel">
+      <div class="section title-panel">
+        <div class="wrapper">
           <hr>
           <div class="logo">
             <div class="flipper">
@@ -38,22 +39,58 @@
           </div>
           <hr>
         </div>
+        <a href="#About" class="link-next">
+          <i class="fa fa-chevron-down"></i>
+        </a>
       </div>
-      <div class="section invert">
+      <div class="section about-panel white-text">
+        <h2 class="uppercase section-heading">About</h2>
         <div class="wrapper">
-          <h2 class="uppercase">Hi</h2>
           <p>I'm a computer science graduate of the <a href="https://uwaterloo.ca/" class="link">University of Waterloo</a>. I have about 2 years of work experience in web development from co-op. <br />Check out my <a href="https://docs.google.com/document/d/1NZ7XnkhLd4Tfl6ek8B0GeNSJE3R2qH-9M7whLpk3P2Q/edit?usp=sharing" class="link">resume</a> for details on that.</p>
-          <p>How unique am I? I can wiggle my ears, I can move each side of my nose independently, and both my thumbs are double-jointed. I'm <span class="cursive">weird</span> like that. <br />But seriously, I love experiencing new challenges and I'm not afraid to ask dumb questions.</p>
+          <p>More about myself? I can wiggle my ears, I can move each side of my nose, and both my thumbs are double-jointed. I'm <span class="cursive">weird</span> like that. <br />But seriously, I love experiencing new challenges and I'm not afraid to ask dumb questions.</p>
         </div>
       </div>
-      <div class="section">
-        <div class="wrapper">
-          <h2 class="uppercase">Hobbies</h2>
-          <p>Biking. <a href="http://steamcommunity.com/id/vinoxic/">Gaming</a>. <a href="https://hummingbird.me/users/Cho/library">Anime</a>.</p>
+      <div class="section white-text">
+        <h2 class="uppercase section-heading">Interests</h2>
+        <div class="slide coding-panel">
+          <div class="wrapper">
+            <h2>
+              <i class="fa fa-code"></i>
+            </h2>
+            <p>As a programmer, of course I love coding! See anything wrong with my site or have some suggestions? Contribute on <a href="https://github.com/kevin-cho/kevin-cho.github.io" class="link">GitHub</a> or just hit me up.</p>
+            <p>Believe it or not, lots of ideas from many different sites were combined into this site. When I see something interesting, I try to incorportate it while making it personal.</p>
+          </div>
+        </div>
+        <div class="slide bike-panel">
+          <div class="wrapper">
+            <h2>
+              <i class="fa fa-bicycle"></i>
+            </h2>
+            <p>Why take a walk when you can grab your bike? When the weather is nice, I tend to bike around. From the beach to the valley, the city offers plenty to explore.</p>
+            <p>When the cold kicks in, which tends to happen early here in Canada, skating becomes the next best option. Living so close to a skating rink, I happily enjoy it!</p>
+          </div>
+        </div>
+        <div class="slide game-panel">
+          <div class="wrapper">
+            <h2>
+              <i class="fa fa-gamepad"></i>
+            </h2>
+            <p>I play a bunch of games from mainstream to indie and from action to strategy. Feel free to check out my <a href="http://steamcommunity.com/id/vinoxic/" class="link">Steam</a> profile.</p>
+            <p>Currently, I'm all about <a href="http://masteroverwatch.com/profile/pc/us/Vinoxic-1291" class="link overwatch">Overwatch</a>. I usually play tank and support roles. My main girl is Zarya; her hair is <span class="cursive">fabulous</span>! She has the whole package — tanks, does damage, and is able to support the team. A true team player.</p>
+          </div>
+        </div>
+        <div class="slide shows-panel">
+          <div class="wrapper">
+            <h2>
+              <i class="fa fa-film"></i>
+            </h2>
+            <p><a href="https://hummingbird.me/users/Cho/library/" class="link">Anime</a>. If you like anime, you and I will get along quite easily <i class="fa fa-smile-o"></i>. We can nerd out together on the shows airing this season!</p>
+            <p>I do watch other things as well. Have you heard about the hip shows Game of Thrones and Rick and Morty? I eagerly wait for a new season every year!</p>
+          </div>
         </div>
       </div>
     </div>
-    <nav>
+    <nav class="link-nav">
       <a href="https://github.com/kevin-cho">
         <i id="icon-github" class="fa fa-github-square icon-btn"></i>
       </a>
@@ -63,7 +100,6 @@
       <a href="mailto:cho.kevin.j@gmail.com">
         <i id="icon-email" class="fa fa-envelope-square icon-btn"></i>
       </a>
-      <span id="link-description"></span>
     </nav>
   </body>
 </html>
