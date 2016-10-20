@@ -1,12 +1,3 @@
-:root {
-  --border-ease: border 0.2s ease-out;
-  --colour-ease: color 0.2s ease;
-  --border-colour-ease: border-color 0.4s ease;
-  --fade-in: fadein 1s;
-  --logo-size: 140px;
-  --accent: #FFD700;
-}
-
 body {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   margin: 0;
@@ -16,11 +7,11 @@ body {
   color: #333;
   min-width: 350px;
 
-  -webkit-animation: var(--fade-in);
-     -moz-animation: var(--fade-in);
-      -ms-animation: var(--fade-in);
-       -o-animation: var(--fade-in);
-          animation: var(--fade-in);
+  -webkit-animation: fadein 1s;
+     -moz-animation: fadein 1s;
+      -ms-animation: fadein 1s;
+       -o-animation: fadein 1s;
+          animation: fadein 1s;
 }
 
 a {
@@ -85,14 +76,14 @@ hr {
 }
 
 .link {
-  color: var(--accent);
+  color: #FFD700;
   border-bottom: 2px solid transparent;
 
-  -webkit-transition: var(--border-ease);
-     -moz-transition: var(--border-ease);
-       -o-transition: var(--border-ease);
-      -ms-transition: var(--border-ease);
-          transition: var(--border-ease);
+  -webkit-transition: border 0.2s ease-out;
+     -moz-transition: border 0.2s ease-out;
+       -o-transition: border 0.2s ease-out;
+      -ms-transition: border 0.2s ease-out;
+          transition: border 0.2s ease-out;
 }
 .link:hover {
   border-bottom: 2px solid;
@@ -121,8 +112,8 @@ hr {
 .logo,
 .logo-front,
 .logo-back {
-  width: var(--logo-size);
-  height: var(--logo-size);
+  width: 140px;
+  height: 140px;
   display: inline-block;
 }
 .logo-front,
@@ -130,7 +121,7 @@ hr {
   position: absolute;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: var(--logo-size);
+  background-size: 140px;
   backface-visibility: hidden;
   top: 0;
   left: 0;
@@ -200,22 +191,22 @@ hr {
   right: 0;
   font-size: 2.3em;
   color: #AAA;
-  -webkit-transition: var(--colour-ease);
-     -moz-transition: var(--colour-ease);
-       -o-transition: var(--colour-ease);
-      -ms-transition: var(--colour-ease);
-          transition: var(--colour-ease);
+  -webkit-transition: color 0.2s ease;
+     -moz-transition: color 0.2s ease;
+       -o-transition: color 0.2s ease;
+      -ms-transition: color 0.2s ease;
+          transition: color 0.2s ease;
 }
 .link-next:hover {
   color: #333;
 }
 
 .icon-btn {
-  -webkit-transition: var(--colour-ease);
-     -moz-transition: var(--colour-ease);
-       -o-transition: var(--colour-ease);
-      -ms-transition: var(--colour-ease);
-          transition: var(--colour-ease);
+  -webkit-transition: color 0.2s ease;
+     -moz-transition: color 0.2s ease;
+       -o-transition: color 0.2s ease;
+      -ms-transition: color 0.2s ease;
+          transition: color 0.2s ease;
   cursor: pointer;
   font-size: 2em !important;
   margin: 3px;
@@ -223,7 +214,7 @@ hr {
 }
 
 .icon-btn:hover {
-  color: var(--accent) !important;
+  color: #FFD700 !important;
 }
 
 /*#icon-github:hover {
@@ -256,20 +247,20 @@ hr {
 
 .fp-controlArrow.fp-prev {
   border-width: 20px 20px 20px 0 !important;
-  -webkit-transition: var(--border-colour-ease);
-     -moz-transition: var(--border-colour-ease);
-       -o-transition: var(--border-colour-ease);
-      -ms-transition: var(--border-colour-ease);
-          transition: var(--border-colour-ease);
+  -webkit-transition: border-color 0.4s ease;
+     -moz-transition: border-color 0.4s ease;
+       -o-transition: border-color 0.4s ease;
+      -ms-transition: border-color 0.4s ease;
+          transition: border-color 0.4s ease;
 }
 
 .fp-controlArrow.fp-next {
   border-width: 20px 0 20px 20px !important;
-  -webkit-transition: var(--border-colour-ease);
-     -moz-transition: var(--border-colour-ease);
-       -o-transition: var(--border-colour-ease);
-      -ms-transition: var(--border-colour-ease);
-          transition: var(--border-colour-ease);
+  -webkit-transition: border-color 0.4s ease;
+     -moz-transition: border-color 0.4s ease;
+       -o-transition: border-color 0.4s ease;
+      -ms-transition: border-color 0.4s ease;
+          transition: border-color 0.4s ease;
 }
 
 .fp-controlArrow.fp-prev:hover {
