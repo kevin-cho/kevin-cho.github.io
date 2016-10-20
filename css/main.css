@@ -287,3 +287,7 @@ hr {
 .fp-slides {
   overflow: inherit !important;
 }
+
+.fp-slidesNav.bottom {
+  bottom: 14px !important;
+}
