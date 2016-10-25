@@ -1,38 +1,38 @@
 #busyArea {
-    padding: 20px;
-    border: 1px solid gray;
-    margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid gray;
+  margin-bottom: 20px;
 }
 
 div#gameArea {
-    width: 150px;
-    height: 250px;
-    background-image: url("http://i.imgur.com/y4kvCV5.png");
-    border-radius: 4px;
-    position: relative;
-    z-index: 9999;
+  width: 150px;
+  height: 250px;
+  background-image: url("http://i.imgur.com/y4kvCV5.png");
+  border-radius: 4px;
+  position: relative;
+  z-index: 9999;
 }
 
 .centreContent {
-    margin: auto;
+  margin: auto;
 }
 
 .showContent {
-    display: block;
+  display: block;
 }
 
 img#gameSprite.stand {
-    padding-top: 35px;
+  padding-top: 35px;
 }
 
 img#gameSprite.jump {
-    padding-top: 0px;
+  padding-top: 0px;
 }
 
 img#gameItem.float {
-    padding-top: 0px;
+  padding-top: 0px;
 }
 
 img#gameItem.land {
-    padding-top: 10px;
+  padding-top: 10px;
 }
