@@ -16,30 +16,16 @@
 
     var gameTemplate = '<div id="gameArea" class="centreContent showContent"><img id="gameItem" src="http://i.imgur.com/ckC1CKK.png" class="centreContent showContent land"></img><img id="gameItemBlock" src="http://i.imgur.com/Gc24df8.png" class="centreContent showContent "></img><img id="gameSprite" src="http://i.imgur.com/zm6xmOT.jpg" class="centreContent showContent stand" align="bottom"></img></div>';
 
-    $(document).keydown(function(e) {
-      // Space key
-      if (e.which == 32 && !isKeyDown) {
-        jump();
-      }
-      return false;
-    });
+    this.append(gameTemplate);
 
-    $(document).keyup(function(e) {
-      // Space key
-      if (e.which == 32 && isKeyDown) {
-        stand();
-      }
-      return false;
-    });
-
-    $(document).mousedown(function() {
+    $('#gameArea').mousedown(function() {
       if (!isKeyDown) {
         jump();
       }
       return false;
     });
 
-    $(document).mouseup(function() {
+    $('#gameArea').mouseup(function() {
       if (isKeyDown) {
         stand();
       }
@@ -99,7 +85,5 @@
           return imgCoin;
       }
     }
-
-    this.append(gameTemplate);
   }
 })(jQuery);
