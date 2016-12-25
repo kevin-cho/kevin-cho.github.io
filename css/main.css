@@ -75,6 +75,25 @@ hr {
   color: #FFF;
 }
 
+.the-more-you-know {
+  font-weight: bold;
+  font-style: italic;
+
+  -webkit-transition: color 0.3s ease-out;
+     -moz-transition: color 0.3s ease-out;
+       -o-transition: color 0.3s ease-out;
+      -ms-transition: color 0.3s ease-out;
+          transition: color 0.3s ease-out;
+}
+
+.the-more-you-know:hover {
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .link {
   color: #FFD700;
   border-bottom: 2px solid transparent;
@@ -190,34 +209,6 @@ hr {
   color: #FFD700 !important;
 }
 
-/*#icon-github:hover {
-  color: #AAA;
-}
-
-#icon-linkedin:hover {
-  color: #0077B5;
-}
-
-#icon-email:hover {
-  color: #E81415;
-}*/
-
-/*.uwaterloo {
-  color: gold;
-}
-.resume {
-  color: #999;
-}
-.steam {
-  color: #144C7F;
-}
-.overwatch {
-  color: #FF9F0D;
-}
-.hummingbird {
-  color: #EE5323;
-}*/
-
 .fp-controlArrow.fp-prev {
   border-width: 20px 20px 20px 0 !important;
   -webkit-transition: border-color 0.4s ease;
@@ -254,4 +245,8 @@ hr {
 
 .fp-slidesNav.bottom {
   bottom: 14px !important;
+}
+
+.fa-star {
+  color: #FFD700;
 }
