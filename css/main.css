@@ -208,6 +208,9 @@ hr {
   color: #FFD700 !important;
 }
 
+
+/* Overwrites */
+
 .fp-controlArrow.fp-prev {
   border-width: 20px 20px 20px 0 !important;
   -webkit-transition: border-color 0.4s ease;
@@ -248,4 +251,23 @@ hr {
 
 .fa-star {
   color: #FFD700;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 550px) {
+  h1 {
+    text-align: center;
+  }
+
+  .section-heading {
+    top: 75px;
+  }
+}
+
+@media (max-width: 680px) {
+  .fp-controlArrow {
+    display: none;
+  }
 }
