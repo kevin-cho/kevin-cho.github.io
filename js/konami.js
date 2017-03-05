@@ -21,7 +21,7 @@
         reset();
       }
       if (index == 10) {
-        window.location.href = 'mario.html';
+        window.location.href = 'mario-item-block/index.html';
         reset();
       }
     } else {
