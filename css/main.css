@@ -72,7 +72,7 @@ hr {
 }
 
 .white-text {
-  color: #FFF;
+  color: #FCFCFC;
 }
 
 .the-more-you-know {
@@ -208,6 +208,25 @@ hr {
   color: #FFD700 !important;
 }
 
+.konami {
+  font-size: 0.1em;
+  margin-top: 40px;
+  text-align: center;
+  height: 50px;
+}
+.konami:hover {
+  font-size: 2em;
+}
+.konami i, .konami div {
+  padding: 5px;
+  font-weight: bold;
+  display: inline-block;
+  transition: all .2s ease-in-out;
+}
+.konami i:hover, .konami div:hover {
+  transform: scale(1.5);
+}
+
 
 /* Overwrites */
 
@@ -238,7 +257,7 @@ hr {
 }
 
 .fp-slidesNav span {
-  background-color: #FFF !important;
+  background-color: #FCFCFC !important;
 }
 
 .fp-slides {
@@ -268,6 +287,10 @@ hr {
 
 @media (max-width: 680px) {
   .fp-controlArrow {
+    display: none;
+  }
+
+  .konami {
     display: none;
   }
 }

@@ -9,7 +9,7 @@
 
       onLeave: function(index, nextIndex, direction) {
         if (index === 1) {
-          $('.icon-btn').css('color', '#FFF');
+          $('.icon-btn').css('color', '#FCFCFC');
         }
       },
       afterLoad: function(anchorLink, index) {
