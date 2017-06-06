@@ -230,11 +230,11 @@ hr {
 }
 
 .fp-controlArrow.fp-prev:hover {
-  border-right-color: #222 !important;
+  border-right-color: #DDD !important;
 }
 
 .fp-controlArrow.fp-next:hover {
-  border-left-color: #222 !important;
+  border-left-color: #DDD !important;
 }
 
 .fp-slidesNav span {
