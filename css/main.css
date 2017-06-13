@@ -110,6 +110,7 @@ hr {
 .section-heading {
   position: absolute;
   text-align: center;
+  font-weight: bold;
   top: 100px;
   left: 0;
   right: 0;
@@ -148,6 +149,7 @@ hr {
 }
 
 .title-name {
+  font-weight: bold;
   margin: 0;
   line-height: 62pt;
 }
@@ -290,12 +292,19 @@ hr {
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 760px) {
   .fp-controlArrow {
     display: none;
   }
 
   .konami {
     display: none;
+  }
+}
+@media (min-width: 761px) {
+  .interest-panel .wrapper {
+    padding: 40px;
+    border: 4px solid;
+    border-radius: 10px;
   }
 }
