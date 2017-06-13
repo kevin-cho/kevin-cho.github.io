@@ -116,6 +116,11 @@ hr {
   z-index: 2;
 }
 
+.interest-icon {
+  text-align: center;
+  font-size: 4em;
+}
+
 .wrapper {
   margin: 0 auto;
   padding: 0 15px;
