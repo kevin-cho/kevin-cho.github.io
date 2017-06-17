@@ -301,7 +301,7 @@ hr {
     display: none;
   }
 }
-@media (min-width: 761px) {
+@media (min-width: 761px) and (min-height: 750px) {
   .interest-panel .wrapper {
     padding: 40px;
     border: 4px solid;
