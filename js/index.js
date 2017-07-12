@@ -6,6 +6,7 @@
       anchors: ['Home', 'About', 'Interests'],
       slidesNavigation: true,
       recordHistory: false,
+      keyboardScrolling: false,
 
       onLeave: function(index, nextIndex, direction) {
         if (index === 1) {
