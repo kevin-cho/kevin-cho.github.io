@@ -1,6 +1,6 @@
 # Plan 01: Set up a new Next.js + TypeScript site
 
-**Status:** In progress (Steps 1–3 done) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
+**Status:** In progress (Steps 1–4 done) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
 
 ## Context
 The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy products **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
@@ -14,6 +14,8 @@ Future products will each live in **their own repo**, deployed as separate Verce
 | Hosting | **Vercel** | Made by the Next.js team; zero-config deploys from GitHub; free tier covers a personal site. GitHub Pages can't run server code. |
 | Future products | **Separate repos on subdomains** | Each product deploys and evolves independently, in any framework; the portal only links to them. |
 | Node version manager | **nvm** | Kevin already knows it; most widely used. |
+| Font | **Poppins** (Google Fonts, self-hosted by `next/font`) | Kevin's preference. |
+| Theme switching | **`next-themes`** + Tailwind `dark:` on a `.dark` class, choice saved in **`localStorage`** | Tailwind only provides the `dark:` styling hook, not detection/toggle/storage. `next-themes` handles the pre-paint script, storage, live OS changes, and tab sync. Hand-writing it (Tailwind docs' snippet) was the alternative. `localStorage` over a cookie keeps pages statically cached. |
 | Styling | **Tailwind CSS v4** | Widely used with Next.js; easy to change later. |
 
 **Scope:** only a working, deployed skeleton. Design, content, and the domain switch-over are later plans. The old site stays live on GitHub Pages throughout.
@@ -36,7 +38,7 @@ Each step is reviewed and approved on its own before it's implemented.
   - Kept: `assets/kevin-cho-resume.pdf` (replaced with updated resume), `images/kevin.png`, `images/icons/favicon.png`, `README.md`.
   - Kept the `mario-item-block` submodule to port later (not initialized locally; run `git submodule update --init` to download it).
 
-## Step 3: Scaffold the Next.js app ✅ Done (not yet committed)
+## Step 3: Scaffold the Next.js app ✅ Done (commit `8a2903d`)
 - **Requirement:** a running Next.js + TypeScript app in the repo root.
 - **Why:** `create-next-app` is the official starter; it configures TypeScript, linting, and the build correctly.
 - **How:** Generated with `create-next-app@latest` (TypeScript, ESLint, App Router, `src/`, `@/*` alias, Turbopack, Tailwind) in a temp folder, then copied in (kept our `README.md`). Package renamed to `kevincho-portal`. `npm install` ran; dev server served the starter page at `http://localhost:3000`.
@@ -46,21 +48,41 @@ Each step is reviewed and approved on its own before it's implemented.
   - `.claude/launch.json` — lets Claude Code start the dev server (with nvm's Node 24) to preview the site.
 - **Note:** npm 11 skipped one install script (`unrs-resolver`, used by ESLint's import resolver) pending approval; check that `npm run lint` works in Step 6.
 
-## Step 4: Move kept assets and add a placeholder home page ⏳ Next
+## Step 4: Move kept assets and add a placeholder home page ✅ Done
 - **Requirement:** a minimal home page with name, photo, and links (LinkedIn, email, GitHub, resume).
 - **Why:** Proves the setup end-to-end with real content, without starting design work.
-- **How:** Move kept files into `public/` (e.g. `public/kevin-cho-resume.pdf`, `public/images/…`), set the favicon, replace the starter `src/app/page.tsx`, and set title/description in `src/app/layout.tsx` metadata.
+- **How:**
+  - Moved `assets/kevin-cho-resume.pdf` → `public/kevin-cho-resume.pdf` (served at `/kevin-cho-resume.pdf`) and `images/kevin.png` → `public/images/kevin.png`; removed the empty `assets/` and `images/` folders.
+  - Favicon: `images/icons/favicon.png` → `src/app/icon.png`, plus a copy as `src/app/apple-icon.png` (iPhone home-screen icon). Next.js adds the `<link>` tags automatically from these file names. Removed the starter `favicon.ico` and its unused SVGs.
+  - `src/app/page.tsx`: photo, name, "Web Engineer" tagline, and LinkedIn / GitHub / Email / Resume links (from the old site). Uses `next/image` for the photo.
+  - `src/app/layout.tsx`: title "Kevin Cho", description "Kevin Cho, Web Engineer".
+  - Font: switched from the starter's Geist to **Poppins** (Kevin's choice) via `next/font/google` in `layout.tsx`, with weights 400/500/600/700 (Poppins needs weights listed). `globals.css` maps Tailwind's `font-sans` to it and the body now uses it (the starter overrode it with Arial). Geist Mono kept for monospace text.
+- **Verified:** page renders at localhost; title, icons, all four links, and the resume PDF (HTTP 200) checked in the browser.
 
-## Step 5: Add a product list for future products
+## Step 5: Light/dark theme with a toggle ⏳ Next (approved)
+- **Requirement:** the site follows the OS light/dark setting by default; a toggle lets the visitor override it; the choice is remembered on later visits.
+- **Why:** Today the theme comes only from the CSS `prefers-color-scheme` media query, so visitors can't override it.
+- **Storage — `localStorage` (not a cookie):**
+  - The server can't read `localStorage`, so the theme is applied in the browser by a tiny script that runs **before the page paints** (no flash of the wrong theme).
+  - A cookie would let the server render the right theme, but reading cookies makes every page render per-request, which gives up Next.js's static caching (Cache Components). Not worth it for a theme preference.
+  - `localStorage` also never gets sent to the server, and isn't tied to an expiry date.
+- **How:**
+  - Add the `next-themes` package (v0.4.6, widely used; handles the pre-paint script, `localStorage`, following OS changes live, and syncing across tabs).
+  - `src/components/theme-provider.tsx`: client wrapper around `next-themes`' `ThemeProvider` with `attribute="class"`, `defaultTheme="system"`, `enableSystem`. Use it in `layout.tsx`; add `suppressHydrationWarning` to `<html>` (the script changes its class before React loads, which is expected).
+  - `globals.css`: make Tailwind's `dark:` follow the `.dark` class instead of the media query (`@custom-variant dark (&:where(.dark, .dark *));`), and move the dark color variables from the `@media` block to `.dark`.
+  - `src/components/theme-toggle.tsx`: client component with three choices — **System / Light / Dark** — so a visitor can go back to following the OS. Rendered only after mount (the server doesn't know the saved choice). Placed in the top-right corner of the page.
+- **Verify:** with no saved choice the page follows the OS; each toggle option applies instantly; a reload keeps the choice; no flash of the wrong theme on reload; no console errors.
+
+## Step 6: Add a product list for future products
 - **Requirement:** one place in the portal that lists products and links to them.
 - **Why:** Products live in their own repos on subdomains, so the portal only needs each product's name, description, and URL. One typed data file means adding a product = adding one entry.
 - **How:** `src/data/products.ts` exporting a typed `Product[]` (`name`, `description`, `url`), starting empty; render it on `src/app/products/page.tsx` ("coming soon" while empty), linked from the home page. Rewrite `README.md` to explain the portal + subdomain setup.
 
-## Step 6: Verify locally
+## Step 7: Verify locally
 - **Requirement:** dev server, production build, and linting all pass.
 - **How:** `npm run dev` → check `http://localhost:3000` in the browser at desktop and mobile widths; then `npm run build` and `npm run lint` with no errors.
 
-## Step 7: Commit and deploy a preview on Vercel
+## Step 8: Commit and deploy a preview on Vercel
 - **Requirement:** the new site live at a Vercel preview URL (not yet on `kevincho.ca`).
 - **Why:** See it on the real host before touching the domain.
 - **How:** Commit on `next-rewrite` (no Claude attribution) and push. Kevin signs in to vercel.com with GitHub and imports the repo; Vercel auto-detects Next.js and builds a preview for the branch.
@@ -87,3 +109,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Step 2: kept the `mario-item-block` submodule; also removed `kevin-cartoon.png` and replaced the resume PDF. Committed and pushed.
 - **2026-10-30** — Plan moved into the repo at `docs/plans/01-nextjs-setup.md` so it's version-controlled.
 - **2026-10-30** — Step 3: scaffolded Next.js 16.4.3 with Tailwind; starter page verified locally. Added `.claude/launch.json` for previews.
+- **2026-10-30** — Step 4: assets moved into `public/` and `src/app/`; placeholder home page with photo and links verified locally.
+- **2026-10-30** — Step 4: font changed from Geist to Poppins.
+- **2026-10-30** — Added Step 5 (light/dark theme toggle, remembered in `localStorage`); later steps renumbered 6–8.
+- **2026-10-30** — Step 5 approved with `next-themes` (considered hand-writing the theme script from Tailwind's docs instead).
