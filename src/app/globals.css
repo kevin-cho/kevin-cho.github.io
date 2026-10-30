@@ -13,6 +13,8 @@
   --muted-foreground: var(--color-zinc-600);
   /* Subtle surfaces, e.g. hover backgrounds */
   --muted: var(--color-zinc-100);
+  /* Outlines, e.g. card borders */
+  --border: var(--color-zinc-200);
 }
 
 .dark {
@@ -20,6 +22,7 @@
   --foreground: #ededed;
   --muted-foreground: var(--color-zinc-400);
   --muted: var(--color-zinc-900);
+  --border: var(--color-zinc-800);
   /* Dark scrollbars and form controls */
   color-scheme: dark;
 }
@@ -30,6 +33,7 @@
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
+  --color-border: var(--border);
   --font-sans: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
 }

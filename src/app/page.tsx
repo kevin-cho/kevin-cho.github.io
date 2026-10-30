@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaEnvelopeSquare, FaGithubSquare, FaLinkedin } from "react-icons/fa";
+import { AppList } from "@/components/app-list";
 import { ResumeSquareIcon } from "@/components/resume-square-icon";
 
 const links = [
@@ -23,7 +24,7 @@ export default function Home() {
       <div>
         <h1 className="text-4xl font-semibold tracking-tight">Kevin Cho</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Web Engineer
+          Senior Software Engineer
         </p>
       </div>
       <nav aria-label="Links">
@@ -43,6 +44,7 @@ export default function Home() {
           ))}
         </ul>
       </nav>
+      <AppList />
     </main>
   );
 }

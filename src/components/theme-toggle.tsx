@@ -10,7 +10,7 @@ declare global {
 }
 
 const buttonClass =
-  "size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-current";
+  "size-9 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-current";
 
 /**
  * Light/dark toggle, like react.dev's: both buttons are always rendered and

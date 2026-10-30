@@ -5,14 +5,14 @@
 ## Context
 The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy apps **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
 
-Future apps will each live in **their own repo**, deployed as separate Vercel projects on **subdomains** of `kevincho.ca` (e.g. `todo.kevincho.ca`); this site is the portal that links to them.
+Future apps will each live in **their own repo**, deployed as separate Vercel projects, and served under a **path** of `kevincho.ca` (e.g. `kevincho.ca/todo`) using Next.js Multi-Zones; this site is the portal that links to them and routes those paths. (Originally planned as subdomains; changed 2026-10-30.)
 
 ### Decisions
 | Decision | Choice | Why |
 |---|---|---|
 | Framework | **Next.js (App Router) + TypeScript** | React + TypeScript with server features (API routes, server rendering) built in. Vite was simpler but would need a separate backend for anything server-side. |
 | Hosting | **Vercel** | Made by the Next.js team; zero-config deploys from GitHub; free tier covers a personal site. GitHub Pages can't run server code. |
-| Future apps | **Separate repos on subdomains** | Each app deploys and evolves independently, in any framework; the portal only links to them. |
+| Future apps | **Separate repos, served under paths** (`kevincho.ca/<app>`, via Next.js Multi-Zones: each app sets a base path, and this site rewrites `/<app>/*` to the app's Vercel deployment) | Each app deploys and evolves independently; one domain for everything and easier shared sign-in across apps. Costs: each new app needs a rewrite rule here (and a redeploy), apps share one origin (less isolation), and app names must not clash with this site's own pages. Vercel Microfrontends is an alternative to hand-written rewrites, to evaluate with the first app. Subdomains were the original choice. |
 | Node version manager | **nvm** | Kevin already knows it; most widely used. |
 | Font | **Poppins** (Google Fonts, self-hosted by `next/font`) | Kevin's preference. |
 | Theme switching | **Own pre-paint script + Light/Dark toggle button**, modelled on react.dev; Tailwind `dark:` on a `.dark` class; choice saved in **`localStorage`** | Defaults to the OS theme until the visitor clicks the toggle. Started with `next-themes`, but it caused a React 19 dev console error and its System/Light/Dark control was more than Kevin wanted; ~30 lines of our own code (like react.dev) does exactly this. `localStorage` over a cookie keeps pages statically cached. |
@@ -98,7 +98,7 @@ Each step is reviewed and approved on its own before it's implemented.
   - `src/components/theme-toggle.tsx`: two buttons (moon "Use dark mode" / sun "Use light mode"), CSS shows the right one, each calls `window.__setPreferredTheme()`.
   - **Verified:** no saved choice → follows the OS, including a live OS switch; clicking flips and saves; saved choice wins over the OS after reload; **no "script tag" console error**; `eslint` and `tsc` pass.
 
-## Step 5a: Semantic color tokens ✅ Done
+## Step 5a: Semantic color tokens ✅ Done (commit `ccc4da7`)
 - **Requirement:** components use color names that describe their *role* (e.g. `text-foreground`, `text-muted-foreground`) instead of pairs like `text-zinc-600 dark:text-zinc-400`; each role's light and dark values are defined once.
 - **Why:** Kevin finds the explicit light/dark pairs noisy. With roles defined in one place, components work in both themes automatically, and changing the palette later means editing one file. This is the same idea as the existing `background`/`foreground`, and the convention shadcn/ui uses.
 - **How:**
@@ -117,10 +117,19 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Result:** `globals.css` defines `--muted-foreground` and `--muted` (using Tailwind's zinc palette variables) next to `--background`/`--foreground`, for `:root` and `.dark`, and exposes all four in `@theme inline`. `page.tsx` and `theme-toggle.tsx` now use `text-foreground`, `hover:text-foreground/80`, `text-muted-foreground`, `hover:bg-muted`; no `zinc-` or `dark:` color classes remain (only `dark:hidden`/`dark:flex` for which toggle button shows). Verified in both themes in the browser (same colors as before, hover at 80% foreground); `eslint`/`tsc` pass.
 - **Gotcha (again):** Turbopack served the old `globals.css` after editing it; fixed by stopping the dev server, deleting `.next/`, and restarting. It seems to happen on every `globals.css` edit, so worth investigating if it keeps up.
 
-## Step 6: Add an apps list for future apps
-- **Requirement:** one place in the portal that lists apps and links to them.
-- **Why:** Apps live in their own repos on subdomains, so the portal only needs each app's name, description, and URL. One typed data file means adding an app = adding one entry.
-- **How:** `src/data/apps.ts` exporting a typed `App[]` (`name`, `description`, `url`), starting empty; render it on `src/app/apps/page.tsx` (URL `/apps`) ("coming soon" while empty), linked from the home page. Rewrite `README.md` to explain the portal + subdomain setup.
+## Step 6: Add an apps list on the home page ✅ Done
+- **Requirement:** the home page lists Kevin's apps and links to each one. (Changed from a separate `/apps` page so the list is easy to find.)
+- **Why:** Apps live in their own repos served under paths like `/todo`, so the portal only needs each app's name, description, and URL. One typed data file means adding an app = adding one entry.
+- **How:**
+  - `src/data/apps.ts`: a typed `App` (`name`, `description`, `url`) and an `apps` array, starting empty.
+  - `src/components/app-list.tsx`: renders an "Apps" heading and one **card** per app — bordered, rounded, name plus one-line description, the whole card is the link, `hover:bg-muted`. Cards stack on phones and form a 2-column grid on wider screens.
+  - **Empty state (decided):** while `apps` is empty the section isn't rendered at all; it appears automatically when the first app is added.
+  - New semantic color `border` (light zinc-200, dark zinc-800) in `globals.css` for the card outline, following Step 5a.
+  - `page.tsx`: render `<AppList />` below the links.
+  - Rewrite `README.md` to explain the portal and how apps are served (originally written for subdomains, updated for paths), including how to add an app.
+- **Verify:** with `apps` empty, the home page looks as it does now; with a temporary sample entry (removed afterwards), cards render correctly in both themes and at phone and desktop widths; `eslint`/`tsc` pass.
+- **Result:** built as planned. `src/data/apps.ts` (typed, empty), `src/components/app-list.tsx` (cards, hidden while empty), `--border` color role in `globals.css`, `<AppList />` under the links in `page.tsx`, and a new `README.md` (portal + app setup, how to add an app, dev commands). Also updated the page description in `layout.tsx` to "Kevin Cho, Senior Software Engineer" to match Kevin's new tagline. Verified with two temporary sample apps (removed): cards stack at phone width and form two columns at desktop width; border, text, and hover background correct in both themes. With the list empty the section isn't rendered. `eslint`/`tsc` pass.
+- **Kevin's own edits in this step:** tagline changed to "Senior Software Engineer"; `cursor-pointer` added to the theme toggle.
 
 ## Step 7: Verify locally
 - **Requirement:** dev server, production build, and linting all pass.
@@ -137,7 +146,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - Design and content for the portal.
 - Switch `kevincho.ca` DNS from GitHub Pages to Vercel, merge to `master`, turn off GitHub Pages.
 - New analytics (e.g. Vercel Analytics) to replace the dead Google one.
-- First app (new repo) + backend choices (database, auth), and its subdomain in Vercel/DNS.
+- First app (new repo) + backend choices (database, auth), its base path (e.g. `/todo`), and the Multi-Zones rewrite in this repo (or Vercel Microfrontends).
 
 ## Verification (end of this plan)
 - `npm run build` and `npm run lint` succeed.
@@ -165,3 +174,6 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Link icon hover brought closer to the resting color (subtler change): light zinc-700, dark zinc-300.
 - **2026-10-30** — Added Step 5a (semantic color tokens instead of explicit light/dark color pairs).
 - **2026-10-30** — Step 5a: semantic color tokens built and verified.
+- **2026-10-30** — Step 6 changed: apps list goes on the home page (cards, hidden while empty) instead of a separate `/apps` page.
+- **2026-10-30** — Step 6: apps list built on the home page (hidden while empty); README rewritten; page description updated to "Senior Software Engineer".
+- **2026-10-30** — Apps move from subdomains (`todo.kevincho.ca`) to paths (`kevincho.ca/todo`) via Next.js Multi-Zones; routing gets set up with the first app. README and `apps.ts` updated to match.
