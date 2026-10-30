@@ -1,6 +1,6 @@
 # Plan 01: Set up a new Next.js + TypeScript site
 
-**Status:** In progress (Steps 1–7 done; Step 8 next) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
+**Status:** ✅ Done (all steps complete, 2026-10-30) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
 
 ## Context
 The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy apps **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
@@ -131,7 +131,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Result:** built as planned. `src/data/apps.ts` (typed, empty), `src/components/app-list.tsx` (cards, hidden while empty), `--border` color role in `globals.css`, `<AppList />` under the links in `page.tsx`, and a new `README.md` (portal + app setup, how to add an app, dev commands). Also updated the page description in `layout.tsx` to "Kevin Cho, Senior Software Engineer" to match Kevin's new tagline. Verified with two temporary sample apps (removed): cards stack at phone width and form two columns at desktop width; border, text, and hover background correct in both themes. With the list empty the section isn't rendered. `eslint`/`tsc` pass.
 - **Kevin's own edits in this step:** tagline changed to "Senior Software Engineer"; `cursor-pointer` added to the theme toggle.
 
-## Step 7: Verify locally ✅ Done
+## Step 7: Verify locally ✅ Done (commit `77f985a`)
 - **Requirement:** dev server, production build, and linting all pass.
 - **How:** `npm run dev` → check `http://localhost:3000` in the browser at desktop and mobile widths; then `npm run build` and `npm run lint` with no errors.
 - **Result (2026-10-30):**
@@ -139,7 +139,7 @@ Each step is reviewed and approved on its own before it's implemented.
   - Ran the production build with `npm run start` on port 3001 (added a `next-start` entry to `.claude/launch.json` for this) and checked it in the browser: title, description, icons, photo, Poppins font, tagline, all four links, resume PDF (HTTP 200); apps section hidden while empty; theme script in `<head>` before the page body; toggle switches and saves; no console errors.
   - Light mode at 1280px desktop width and phone width (375px): layout centered, no horizontal scrolling, toggle visible.
 
-## Step 8: Commit and deploy a preview on Vercel
+## Step 8: Commit and deploy a preview on Vercel ✅ Done (commit `b0428d7`)
 - **Requirement:** the new site live at a Vercel preview URL (not yet on `kevincho.ca`).
 - **Why:** See it on the real host before touching the domain.
 - **How:** Commit on `next-rewrite` (no Claude attribution) and push. Kevin signs in to vercel.com with GitHub and imports the repo; Vercel auto-detects Next.js and builds a preview for the branch.
@@ -148,7 +148,7 @@ Each step is reviewed and approved on its own before it's implemented.
   2. ✅ Kevin: sign in at vercel.com with GitHub (Hobby plan, free) → **Add New → Project** → install the Vercel GitHub app with access to **only** `kevin-cho/kevin-cho.github.io` → **Import**. Framework preset: Next.js (auto-detected); leave build settings and root directory as defaults; no environment variables.
   3. ✅ **Heads-up (happened as expected: the `master` build failed with "No Next.js version detected"; Application Preset had to be changed from "Other" to "Next.js" on import):** the first deployment Vercel makes is from the repo's default branch, `master` (the old static site). That's harmless: it only lives at a `*.vercel.app` address, and `kevincho.ca` is untouched. Vercel then builds a **preview** for every push to other branches.
   4. ✅ Pin Node 24 for Vercel by adding `"engines": { "node": "24.x" }` to `package.json` (Vercel reads this, not `.nvmrc`). Committing and pushing this also triggers the first `next-rewrite` preview build.
-  5. Open the preview URL from the Vercel dashboard (or the commit's status on GitHub) and check the site like Step 7.
+  5. ✅ Open the preview URL from the Vercel dashboard (or the commit's status on GitHub) and check the site like Step 7.
   - Don't add domains or change the production branch yet; that's the later domain switch-over plan.
 
 ---
@@ -189,4 +189,6 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Step 6: apps list built on the home page (hidden while empty); README rewritten; page description updated to "Senior Software Engineer".
 - **2026-10-30** — Apps move from subdomains (`todo.kevincho.ca`) to paths (`kevincho.ca/todo`) via Next.js Multi-Zones; routing gets set up with the first app. README and `apps.ts` updated to match.
 - **2026-10-30** — Step 7: lint and production build pass (all routes static); production build checked in the browser at desktop and phone widths.
-- **2026-10-30** — Step 8: Vercel project imported (team "Kevin Cho"); first `master` build failed as expected; pinned Node 24 via `engines` and pushed to trigger the `next-rewrite` preview.
+- **2026-10-30** — Step 8: Vercel project imported; first `master` build failed as expected; pinned Node 24 via `engines` and pushed to trigger the `next-rewrite` preview.
+- **2026-10-30** — Step 8: `next-rewrite` preview deployed successfully (commit `b0428d7`; GitHub status "Deployment has completed"). Branch preview URL: https://kevincho-portal-git-next-rewrite-kevin-cho.vercel.app (Vercel project `kevincho-portal`, team `kevin-cho`). Previews are behind Vercel's login (Deployment Protection), so Kevin checks it while signed in.
+- **2026-10-30** — Step 8: Kevin checked the Vercel preview; it looks good. Plan 01 complete.
