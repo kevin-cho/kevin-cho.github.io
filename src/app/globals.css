@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
-/* `dark:` classes follow the `dark` class on <html> (set by next-themes)
+/* `dark:` classes follow the `dark` class on <html> (set by ThemeScript)
    instead of the OS setting, so the theme toggle can override it. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Semantic colors: each role is defined once per theme, and components use
+   the role (e.g. `text-muted-foreground`) so they work in both themes. */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-poppins);
-  --font-mono: var(--font-geist-mono);
+  /* Secondary text and icons */
+  --muted-foreground: var(--color-zinc-600);
+  /* Subtle surfaces, e.g. hover backgrounds */
+  --muted: var(--color-zinc-100);
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --muted-foreground: var(--color-zinc-400);
+  --muted: var(--color-zinc-900);
   /* Dark scrollbars and form controls */
   color-scheme: dark;
+}
+
+/* Expose the roles as Tailwind colors: bg-background, text-foreground, etc. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {

@@ -65,13 +65,13 @@ Each step is reviewed and approved on its own before it's implemented.
 - **How:**
   - Add `react-icons` (one package of many icon sets as React components; only the icons used end up in the site). Use its Font Awesome icons: `FaGithubSquare`, `FaLinkedin` (square), `FaEnvelopeSquare`. Shapes follow newer Font Awesome, so they're very close to, not pixel-identical with, 4.5.
   - In `page.tsx`, give each link an icon-only button with an accessible label for screen readers. Resume gets an icon too. Font Awesome has no rounded-square resume/document icon to match the other three, so Kevin is choosing between: a **custom icon** (Font Awesome's exact rounded square with a document or "CV" cut out, as a small SVG component in `src/components/`), rounded-square document icons from other sets in `react-icons` (`MdArticle`, `PiArticleFill`, `RiArticleFill`, `RiProfileFill`), or plain Font Awesome file icons (`FaFileAlt`, etc.).
-  - **Colors (no gold):** icons are muted gray and turn full-contrast on hover, matching the theme. Light: zinc-600 → zinc-950. Dark: zinc-400 → zinc-50. Same text colors as the page, so they keep working once the Step 5 toggle exists. Plus a visible focus ring for keyboard users.
+  - **Colors (no gold):** icons are full-contrast and turn slightly softer on hover (a small step from the resting color), matching the theme. Light: zinc-950 → zinc-700. Dark: zinc-50 → zinc-300. (Adjusted 2026-10-30 at Kevin's request: first gray → full-contrast, then inverted, then the hover brought closer to the resting color.) Since Step 5a: `text-foreground` → `hover:text-foreground/80`. Plus a visible focus ring for keyboard users.
   - **Resume icon (decided):** custom `src/components/resume-square-icon.tsx` — Font Awesome's rounded square with the `FaFileAlt` document cut out via an SVG mask, so all four icons share one shape.
   - **Placement (decided):** icons stay in the centered row under the name, in the old site's order: GitHub, LinkedIn, Email, then Resume.
 - **Result:** `react-icons` 5.7.0 installed. All four links are icon-only (36px), with `aria-label` for screen readers and a `title` tooltip on hover. Checked in the browser in light and dark mode (hover darkens/brightens as planned); `eslint` and `tsc` pass.
   - **Email (decided):** keep `chokevinj@gmail.com` (the old site linked `cho.kevin.j@gmail.com`).
 
-## Step 5: Light/dark theme with a toggle ✅ Done
+## Step 5: Light/dark theme with a toggle ✅ Done (commit `8909289`)
 - **Requirement:** the site follows the OS light/dark setting by default; a toggle lets the visitor override it; the choice is remembered on later visits.
 - **Why:** Today the theme comes only from the CSS `prefers-color-scheme` media query, so visitors can't override it.
 - **Storage — `localStorage` (not a cookie):**
@@ -97,6 +97,25 @@ Each step is reviewed and approved on its own before it's implemented.
   - `src/components/theme-script.tsx`: the pre-paint script, rendered in `<head>` by `layout.tsx`. Uses the saved `light`/`dark` value, else the OS setting; follows OS changes until a choice is saved; ignores invalid saved values (e.g. `system` left over from next-themes); exposes `window.__setPreferredTheme()`.
   - `src/components/theme-toggle.tsx`: two buttons (moon "Use dark mode" / sun "Use light mode"), CSS shows the right one, each calls `window.__setPreferredTheme()`.
   - **Verified:** no saved choice → follows the OS, including a live OS switch; clicking flips and saves; saved choice wins over the OS after reload; **no "script tag" console error**; `eslint` and `tsc` pass.
+
+## Step 5a: Semantic color tokens ✅ Done
+- **Requirement:** components use color names that describe their *role* (e.g. `text-foreground`, `text-muted-foreground`) instead of pairs like `text-zinc-600 dark:text-zinc-400`; each role's light and dark values are defined once.
+- **Why:** Kevin finds the explicit light/dark pairs noisy. With roles defined in one place, components work in both themes automatically, and changing the palette later means editing one file. This is the same idea as the existing `background`/`foreground`, and the convention shadcn/ui uses.
+- **How:**
+  - `globals.css`: add role variables under `:root` (light) and `.dark` (dark), and expose them to Tailwind in `@theme inline`:
+
+    | Role | Tailwind class | Light | Dark | Used for |
+    |---|---|---|---|---|
+    | `background` (exists) | `bg-background` | `#ffffff` | `#0a0a0a` | page |
+    | `foreground` (exists) | `text-foreground` | `#171717` | `#ededed` | main text, link icons |
+    | `muted-foreground` (new) | `text-muted-foreground` | zinc-600 | zinc-400 | tagline, theme toggle icon |
+    | `muted` (new) | `bg-muted` | zinc-100 | zinc-900 | subtle hover background (theme toggle) |
+
+  - Link icon hover: `hover:text-foreground/80` — the foreground color at 80% opacity, so it's "slightly softer than the resting color" in both themes without a second color.
+  - Replace the color classes in `page.tsx` and `theme-toggle.tsx` (12 hard-coded `zinc`/`dark:` color classes today). `dark:hidden` / `dark:flex` on the toggle buttons stay — those switch *which button shows*, not colors.
+- **Verify:** both themes look the same as now (icons, tagline, toggle, hover states); no `zinc-` or `dark:` color classes left in components; `eslint`/`tsc` pass.
+- **Result:** `globals.css` defines `--muted-foreground` and `--muted` (using Tailwind's zinc palette variables) next to `--background`/`--foreground`, for `:root` and `.dark`, and exposes all four in `@theme inline`. `page.tsx` and `theme-toggle.tsx` now use `text-foreground`, `hover:text-foreground/80`, `text-muted-foreground`, `hover:bg-muted`; no `zinc-` or `dark:` color classes remain (only `dark:hidden`/`dark:flex` for which toggle button shows). Verified in both themes in the browser (same colors as before, hover at 80% foreground); `eslint`/`tsc` pass.
+- **Gotcha (again):** Turbopack served the old `globals.css` after editing it; fixed by stopping the dev server, deleting `.next/`, and restarting. It seems to happen on every `globals.css` edit, so worth investigating if it keeps up.
 
 ## Step 6: Add an apps list for future apps
 - **Requirement:** one place in the portal that lists apps and links to them.
@@ -142,3 +161,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Renamed "products" to "apps" throughout (Step 6 now builds `src/data/apps.ts` and the `/apps` page).
 - **2026-10-30** — Step 5 approved with `next-themes` (considered hand-writing the theme script from Tailwind's docs instead).
 - **2026-10-30** — Step 5: first built with `next-themes` (System/Light/Dark control); found a React 19 dev console error and a Turbopack stale-CSS cache issue. Revised to a Light/Dark toggle button with our own pre-paint script, modelled on react.dev; `next-themes` removed. Done.
+- **2026-10-30** — Step 4a follow-up: inverted the link icon colors (full-contrast at rest, muted gray on hover).
+- **2026-10-30** — Link icon hover brought closer to the resting color (subtler change): light zinc-700, dark zinc-300.
+- **2026-10-30** — Added Step 5a (semantic color tokens instead of explicit light/dark color pairs).
+- **2026-10-30** — Step 5a: semantic color tokens built and verified.

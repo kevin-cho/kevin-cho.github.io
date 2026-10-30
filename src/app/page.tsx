@@ -22,7 +22,7 @@ export default function Home() {
       />
       <div>
         <h1 className="text-4xl font-semibold tracking-tight">Kevin Cho</h1>
-        <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-lg text-muted-foreground">
           Web Engineer
         </p>
       </div>
@@ -35,7 +35,7 @@ export default function Home() {
                 href={href}
                 aria-label={label}
                 title={label}
-                className="block rounded-md text-zinc-600 transition-colors hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-zinc-400 dark:hover:text-zinc-50"
+                className="block rounded-md text-foreground transition-colors hover:text-foreground/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
               >
                 <Icon aria-hidden className="size-9" />
               </a>
