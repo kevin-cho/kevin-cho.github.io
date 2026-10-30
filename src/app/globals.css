@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* `dark:` classes follow the `dark` class on <html> (set by next-themes)
+   instead of the OS setting, so the theme toggle can override it. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,11 +16,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  /* Dark scrollbars and form controls */
+  color-scheme: dark;
 }
 
 body {

@@ -3,19 +3,19 @@
 **Status:** In progress (Steps 1–4 done) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
 
 ## Context
-The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy products **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
+The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy apps **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
 
-Future products will each live in **their own repo**, deployed as separate Vercel projects on **subdomains** of `kevincho.ca` (e.g. `todo.kevincho.ca`); this site is the portal that links to them.
+Future apps will each live in **their own repo**, deployed as separate Vercel projects on **subdomains** of `kevincho.ca` (e.g. `todo.kevincho.ca`); this site is the portal that links to them.
 
 ### Decisions
 | Decision | Choice | Why |
 |---|---|---|
 | Framework | **Next.js (App Router) + TypeScript** | React + TypeScript with server features (API routes, server rendering) built in. Vite was simpler but would need a separate backend for anything server-side. |
 | Hosting | **Vercel** | Made by the Next.js team; zero-config deploys from GitHub; free tier covers a personal site. GitHub Pages can't run server code. |
-| Future products | **Separate repos on subdomains** | Each product deploys and evolves independently, in any framework; the portal only links to them. |
+| Future apps | **Separate repos on subdomains** | Each app deploys and evolves independently, in any framework; the portal only links to them. |
 | Node version manager | **nvm** | Kevin already knows it; most widely used. |
 | Font | **Poppins** (Google Fonts, self-hosted by `next/font`) | Kevin's preference. |
-| Theme switching | **`next-themes`** + Tailwind `dark:` on a `.dark` class, choice saved in **`localStorage`** | Tailwind only provides the `dark:` styling hook, not detection/toggle/storage. `next-themes` handles the pre-paint script, storage, live OS changes, and tab sync. Hand-writing it (Tailwind docs' snippet) was the alternative. `localStorage` over a cookie keeps pages statically cached. |
+| Theme switching | **Own pre-paint script + Light/Dark toggle button**, modelled on react.dev; Tailwind `dark:` on a `.dark` class; choice saved in **`localStorage`** | Defaults to the OS theme until the visitor clicks the toggle. Started with `next-themes`, but it caused a React 19 dev console error and its System/Light/Dark control was more than Kevin wanted; ~30 lines of our own code (like react.dev) does exactly this. `localStorage` over a cookie keeps pages statically cached. |
 | Styling | **Tailwind CSS v4** | Widely used with Next.js; easy to change later. |
 
 **Scope:** only a working, deployed skeleton. Design, content, and the domain switch-over are later plans. The old site stays live on GitHub Pages throughout.
@@ -59,7 +59,7 @@ Each step is reviewed and approved on its own before it's implemented.
   - Font: switched from the starter's Geist to **Poppins** (Kevin's choice) via `next/font/google` in `layout.tsx`, with weights 400/500/600/700 (Poppins needs weights listed). `globals.css` maps Tailwind's `font-sans` to it and the body now uses it (the starter overrode it with Arial). Geist Mono kept for monospace text.
 - **Verified:** page renders at localhost; title, icons, all four links, and the resume PDF (HTTP 200) checked in the browser.
 
-## Step 4a: Bring back the old site's link icons ✅ Done
+## Step 4a: Bring back the old site's link icons ✅ Done (commit `2f797fd`)
 - **Requirement:** the GitHub, LinkedIn, and Email links show the same icons as the old site.
 - **Why:** Kevin wants the familiar icons back. The old site used Font Awesome 4.5 (via a CDN stylesheet): `fa-github-square`, `fa-linkedin-square`, `fa-envelope-square`, size 2em, gray (`#333`) turning gold (`#FFD700`) on hover, in a row fixed to the bottom-left corner.
 - **How:**
@@ -71,7 +71,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Result:** `react-icons` 5.7.0 installed. All four links are icon-only (36px), with `aria-label` for screen readers and a `title` tooltip on hover. Checked in the browser in light and dark mode (hover darkens/brightens as planned); `eslint` and `tsc` pass.
   - **Email (decided):** keep `chokevinj@gmail.com` (the old site linked `cho.kevin.j@gmail.com`).
 
-## Step 5: Light/dark theme with a toggle ⏳ Next (approved)
+## Step 5: Light/dark theme with a toggle ✅ Done
 - **Requirement:** the site follows the OS light/dark setting by default; a toggle lets the visitor override it; the choice is remembered on later visits.
 - **Why:** Today the theme comes only from the CSS `prefers-color-scheme` media query, so visitors can't override it.
 - **Storage — `localStorage` (not a cookie):**
@@ -84,11 +84,24 @@ Each step is reviewed and approved on its own before it's implemented.
   - `globals.css`: make Tailwind's `dark:` follow the `.dark` class instead of the media query (`@custom-variant dark (&:where(.dark, .dark *));`), and move the dark color variables from the `@media` block to `.dark`.
   - `src/components/theme-toggle.tsx`: client component with three choices — **System / Light / Dark** — so a visitor can go back to following the OS. Rendered only after mount (the server doesn't know the saved choice). Placed in the top-right corner of the page.
 - **Verify:** with no saved choice the page follows the OS; each toggle option applies instantly; a reload keeps the choice; no flash of the wrong theme on reload; no console errors.
+- **Progress (2026-10-30):** built as planned. Toggle is a System/Light/Dark segmented control (`FaDesktop`/`FaSun`/`FaMoon`) in a header in `layout.tsx`, so it shows on every page. Verified: System follows the OS (including live OS changes), Light/Dark apply instantly and survive a reload, the pre-paint script is in the server HTML, `eslint`/`tsc` pass.
+  - **Open issue (resolved by the revision below):** React 19 logs a dev-only console error, "Encountered a script tag while rendering React component", caused by how `next-themes` 0.4.6 injects its script. The theme still works (the script runs from the server HTML). Decision pending: accept it, or replace next-themes' script.
+  - **Gotcha found:** Turbopack's dev cache kept serving the old `globals.css` after edits (even across restarts). Fix: stop the dev server, delete `.next/`, restart.
+- **Revision (approved: Option B):** Kevin wants Light/Dark only, as a single toggle button, modelled on react.dev.
+  - **What react.dev does (checked 2026-10-30):** defaults to the OS theme; while nothing is saved it follows OS changes live. One round icon button (moon in light mode, labelled "Use Dark Mode"; sun in dark mode, "Use Light Mode") flips the theme and saves it in `localStorage` (`theme`), after which the saved choice wins. There's no way back to "follow the OS" except clearing site data. Both icons are always in the HTML and CSS shows the right one, so nothing has to wait for the page to load. Its pre-paint script is ~30 lines of its own code, not a package.
+  - **Option A — keep `next-themes`:** same behavior (it already defaults to the OS when nothing is saved); the button calls `setTheme(resolvedTheme === "dark" ? "light" : "dark")`. Small change, but keeps the dev console error.
+  - **Option B — do it like react.dev (drop `next-themes`):** our own small pre-paint script in `layout.tsx` plus a toggle button; removes the dependency and should remove the console error (to be confirmed in the browser).
+  - Either way: remove the System option and the segmented control; show moon/sun via CSS (`dark:hidden` / `hidden dark:block`) instead of waiting for mount.
+- **Final result (Option B):**
+  - Removed `next-themes` and `src/components/theme-provider.tsx`.
+  - `src/components/theme-script.tsx`: the pre-paint script, rendered in `<head>` by `layout.tsx`. Uses the saved `light`/`dark` value, else the OS setting; follows OS changes until a choice is saved; ignores invalid saved values (e.g. `system` left over from next-themes); exposes `window.__setPreferredTheme()`.
+  - `src/components/theme-toggle.tsx`: two buttons (moon "Use dark mode" / sun "Use light mode"), CSS shows the right one, each calls `window.__setPreferredTheme()`.
+  - **Verified:** no saved choice → follows the OS, including a live OS switch; clicking flips and saves; saved choice wins over the OS after reload; **no "script tag" console error**; `eslint` and `tsc` pass.
 
-## Step 6: Add a product list for future products
-- **Requirement:** one place in the portal that lists products and links to them.
-- **Why:** Products live in their own repos on subdomains, so the portal only needs each product's name, description, and URL. One typed data file means adding a product = adding one entry.
-- **How:** `src/data/products.ts` exporting a typed `Product[]` (`name`, `description`, `url`), starting empty; render it on `src/app/products/page.tsx` ("coming soon" while empty), linked from the home page. Rewrite `README.md` to explain the portal + subdomain setup.
+## Step 6: Add an apps list for future apps
+- **Requirement:** one place in the portal that lists apps and links to them.
+- **Why:** Apps live in their own repos on subdomains, so the portal only needs each app's name, description, and URL. One typed data file means adding an app = adding one entry.
+- **How:** `src/data/apps.ts` exporting a typed `App[]` (`name`, `description`, `url`), starting empty; render it on `src/app/apps/page.tsx` (URL `/apps`) ("coming soon" while empty), linked from the home page. Rewrite `README.md` to explain the portal + subdomain setup.
 
 ## Step 7: Verify locally
 - **Requirement:** dev server, production build, and linting all pass.
@@ -105,7 +118,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - Design and content for the portal.
 - Switch `kevincho.ca` DNS from GitHub Pages to Vercel, merge to `master`, turn off GitHub Pages.
 - New analytics (e.g. Vercel Analytics) to replace the dead Google one.
-- First product (new repo) + backend choices (database, auth), and its subdomain in Vercel/DNS.
+- First app (new repo) + backend choices (database, auth), and its subdomain in Vercel/DNS.
 
 ## Verification (end of this plan)
 - `npm run build` and `npm run lint` succeed.
@@ -126,4 +139,6 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Added Step 5 (light/dark theme toggle, remembered in `localStorage`); later steps renumbered 6–8.
 - **2026-10-30** — Added Step 4a (restore old link icons). Found that Step 4's email link differs from the old site's address.
 - **2026-10-30** — Step 4a: dropped the gold hover for theme-aware gray → full-contrast; Resume got a custom rounded-square document icon. Done.
+- **2026-10-30** — Renamed "products" to "apps" throughout (Step 6 now builds `src/data/apps.ts` and the `/apps` page).
 - **2026-10-30** — Step 5 approved with `next-themes` (considered hand-writing the theme script from Tailwind's docs instead).
+- **2026-10-30** — Step 5: first built with `next-themes` (System/Light/Dark control); found a React 19 dev console error and a Turbopack stale-CSS cache issue. Revised to a Light/Dark toggle button with our own pre-paint script, modelled on react.dev; `next-themes` removed. Done.

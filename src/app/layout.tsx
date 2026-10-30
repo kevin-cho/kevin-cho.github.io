@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
+import { ThemeScript } from "@/components/theme-script";
+import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
 // Poppins isn't a variable font, so each weight used must be listed.
@@ -21,11 +23,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    // suppressHydrationWarning: ThemeScript adds the `dark` class to <html>
+    // before React loads, so React would otherwise warn about the mismatch.
     <html
       lang="en"
       className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <ThemeScript />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <header className="flex justify-end p-4">
+          <ThemeToggle />
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
