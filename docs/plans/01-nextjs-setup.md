@@ -1,6 +1,6 @@
 # Plan 01: Set up a new Next.js + TypeScript site
 
-**Status:** In progress (Steps 1–4 done) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
+**Status:** In progress (Steps 1–7 done; Step 8 next) · **Branch:** `next-rewrite` · **Started:** 2026-10-30
 
 ## Context
 The current site (`kevincho.ca`) is a single jQuery/fullPage.js `index.html` hosted on GitHub Pages. Kevin wants to start fresh with React + TypeScript and later deploy apps **that need a backend** (logins, saved data, secret API keys), hosted on **Vercel**.
@@ -117,7 +117,7 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Result:** `globals.css` defines `--muted-foreground` and `--muted` (using Tailwind's zinc palette variables) next to `--background`/`--foreground`, for `:root` and `.dark`, and exposes all four in `@theme inline`. `page.tsx` and `theme-toggle.tsx` now use `text-foreground`, `hover:text-foreground/80`, `text-muted-foreground`, `hover:bg-muted`; no `zinc-` or `dark:` color classes remain (only `dark:hidden`/`dark:flex` for which toggle button shows). Verified in both themes in the browser (same colors as before, hover at 80% foreground); `eslint`/`tsc` pass.
 - **Gotcha (again):** Turbopack served the old `globals.css` after editing it; fixed by stopping the dev server, deleting `.next/`, and restarting. It seems to happen on every `globals.css` edit, so worth investigating if it keeps up.
 
-## Step 6: Add an apps list on the home page ✅ Done
+## Step 6: Add an apps list on the home page ✅ Done (commit `c9758f0`)
 - **Requirement:** the home page lists Kevin's apps and links to each one. (Changed from a separate `/apps` page so the list is easy to find.)
 - **Why:** Apps live in their own repos served under paths like `/todo`, so the portal only needs each app's name, description, and URL. One typed data file means adding an app = adding one entry.
 - **How:**
@@ -131,9 +131,13 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Result:** built as planned. `src/data/apps.ts` (typed, empty), `src/components/app-list.tsx` (cards, hidden while empty), `--border` color role in `globals.css`, `<AppList />` under the links in `page.tsx`, and a new `README.md` (portal + app setup, how to add an app, dev commands). Also updated the page description in `layout.tsx` to "Kevin Cho, Senior Software Engineer" to match Kevin's new tagline. Verified with two temporary sample apps (removed): cards stack at phone width and form two columns at desktop width; border, text, and hover background correct in both themes. With the list empty the section isn't rendered. `eslint`/`tsc` pass.
 - **Kevin's own edits in this step:** tagline changed to "Senior Software Engineer"; `cursor-pointer` added to the theme toggle.
 
-## Step 7: Verify locally
+## Step 7: Verify locally ✅ Done
 - **Requirement:** dev server, production build, and linting all pass.
 - **How:** `npm run dev` → check `http://localhost:3000` in the browser at desktop and mobile widths; then `npm run build` and `npm run lint` with no errors.
+- **Result (2026-10-30):**
+  - `npm run lint`: no problems. `npm run build`: compiled and type-checked; every route is **static** (prerendered HTML): `/`, `/_not-found`, `/icon.png`, `/apple-icon.png`.
+  - Ran the production build with `npm run start` on port 3001 (added a `next-start` entry to `.claude/launch.json` for this) and checked it in the browser: title, description, icons, photo, Poppins font, tagline, all four links, resume PDF (HTTP 200); apps section hidden while empty; theme script in `<head>` before the page body; toggle switches and saves; no console errors.
+  - Light mode at 1280px desktop width and phone width (375px): layout centered, no horizontal scrolling, toggle visible.
 
 ## Step 8: Commit and deploy a preview on Vercel
 - **Requirement:** the new site live at a Vercel preview URL (not yet on `kevincho.ca`).
@@ -177,3 +181,4 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Step 6 changed: apps list goes on the home page (cards, hidden while empty) instead of a separate `/apps` page.
 - **2026-10-30** — Step 6: apps list built on the home page (hidden while empty); README rewritten; page description updated to "Senior Software Engineer".
 - **2026-10-30** — Apps move from subdomains (`todo.kevincho.ca`) to paths (`kevincho.ca/todo`) via Next.js Multi-Zones; routing gets set up with the first app. README and `apps.ts` updated to match.
+- **2026-10-30** — Step 7: lint and production build pass (all routes static); production build checked in the browser at desktop and phone widths.
