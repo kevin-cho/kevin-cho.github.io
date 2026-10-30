@@ -1,10 +1,12 @@
 import Image from "next/image";
+import { FaEnvelopeSquare, FaGithubSquare, FaLinkedin } from "react-icons/fa";
+import { ResumeSquareIcon } from "@/components/resume-square-icon";
 
 const links = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/chokevinj" },
-  { label: "GitHub", href: "https://github.com/kevin-cho" },
-  { label: "Email", href: "mailto:chokevinj@gmail.com" },
-  { label: "Resume", href: "/kevin-cho-resume.pdf" },
+  { label: "GitHub", href: "https://github.com/kevin-cho", Icon: FaGithubSquare },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/chokevinj", Icon: FaLinkedin },
+  { label: "Email", href: "mailto:chokevinj@gmail.com", Icon: FaEnvelopeSquare },
+  { label: "Resume", href: "/kevin-cho-resume.pdf", Icon: ResumeSquareIcon },
 ];
 
 export default function Home() {
@@ -25,14 +27,17 @@ export default function Home() {
         </p>
       </div>
       <nav aria-label="Links">
-        <ul className="flex flex-wrap justify-center gap-3">
-          {links.map((link) => (
-            <li key={link.label}>
+        <ul className="flex gap-2">
+          {links.map(({ label, href, Icon }) => (
+            <li key={label}>
+              {/* Icon-only link: aria-label gives screen readers the name, title shows it on hover */}
               <a
-                href={link.href}
-                className="inline-block rounded-full border border-zinc-300 px-5 py-2 font-medium transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
+                href={href}
+                aria-label={label}
+                title={label}
+                className="block rounded-md text-zinc-600 transition-colors hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-zinc-400 dark:hover:text-zinc-50"
               >
-                {link.label}
+                <Icon aria-hidden className="size-9" />
               </a>
             </li>
           ))}

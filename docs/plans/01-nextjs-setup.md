@@ -48,7 +48,7 @@ Each step is reviewed and approved on its own before it's implemented.
   - `.claude/launch.json` — lets Claude Code start the dev server (with nvm's Node 24) to preview the site.
 - **Note:** npm 11 skipped one install script (`unrs-resolver`, used by ESLint's import resolver) pending approval; check that `npm run lint` works in Step 6.
 
-## Step 4: Move kept assets and add a placeholder home page ✅ Done
+## Step 4: Move kept assets and add a placeholder home page ✅ Done (commit `b551c86`)
 - **Requirement:** a minimal home page with name, photo, and links (LinkedIn, email, GitHub, resume).
 - **Why:** Proves the setup end-to-end with real content, without starting design work.
 - **How:**
@@ -58,6 +58,18 @@ Each step is reviewed and approved on its own before it's implemented.
   - `src/app/layout.tsx`: title "Kevin Cho", description "Kevin Cho, Web Engineer".
   - Font: switched from the starter's Geist to **Poppins** (Kevin's choice) via `next/font/google` in `layout.tsx`, with weights 400/500/600/700 (Poppins needs weights listed). `globals.css` maps Tailwind's `font-sans` to it and the body now uses it (the starter overrode it with Arial). Geist Mono kept for monospace text.
 - **Verified:** page renders at localhost; title, icons, all four links, and the resume PDF (HTTP 200) checked in the browser.
+
+## Step 4a: Bring back the old site's link icons ✅ Done
+- **Requirement:** the GitHub, LinkedIn, and Email links show the same icons as the old site.
+- **Why:** Kevin wants the familiar icons back. The old site used Font Awesome 4.5 (via a CDN stylesheet): `fa-github-square`, `fa-linkedin-square`, `fa-envelope-square`, size 2em, gray (`#333`) turning gold (`#FFD700`) on hover, in a row fixed to the bottom-left corner.
+- **How:**
+  - Add `react-icons` (one package of many icon sets as React components; only the icons used end up in the site). Use its Font Awesome icons: `FaGithubSquare`, `FaLinkedin` (square), `FaEnvelopeSquare`. Shapes follow newer Font Awesome, so they're very close to, not pixel-identical with, 4.5.
+  - In `page.tsx`, give each link an icon-only button with an accessible label for screen readers. Resume gets an icon too. Font Awesome has no rounded-square resume/document icon to match the other three, so Kevin is choosing between: a **custom icon** (Font Awesome's exact rounded square with a document or "CV" cut out, as a small SVG component in `src/components/`), rounded-square document icons from other sets in `react-icons` (`MdArticle`, `PiArticleFill`, `RiArticleFill`, `RiProfileFill`), or plain Font Awesome file icons (`FaFileAlt`, etc.).
+  - **Colors (no gold):** icons are muted gray and turn full-contrast on hover, matching the theme. Light: zinc-600 → zinc-950. Dark: zinc-400 → zinc-50. Same text colors as the page, so they keep working once the Step 5 toggle exists. Plus a visible focus ring for keyboard users.
+  - **Resume icon (decided):** custom `src/components/resume-square-icon.tsx` — Font Awesome's rounded square with the `FaFileAlt` document cut out via an SVG mask, so all four icons share one shape.
+  - **Placement (decided):** icons stay in the centered row under the name, in the old site's order: GitHub, LinkedIn, Email, then Resume.
+- **Result:** `react-icons` 5.7.0 installed. All four links are icon-only (36px), with `aria-label` for screen readers and a `title` tooltip on hover. Checked in the browser in light and dark mode (hover darkens/brightens as planned); `eslint` and `tsc` pass.
+  - **Email (decided):** keep `chokevinj@gmail.com` (the old site linked `cho.kevin.j@gmail.com`).
 
 ## Step 5: Light/dark theme with a toggle ⏳ Next (approved)
 - **Requirement:** the site follows the OS light/dark setting by default; a toggle lets the visitor override it; the choice is remembered on later visits.
@@ -112,4 +124,6 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Step 4: assets moved into `public/` and `src/app/`; placeholder home page with photo and links verified locally.
 - **2026-10-30** — Step 4: font changed from Geist to Poppins.
 - **2026-10-30** — Added Step 5 (light/dark theme toggle, remembered in `localStorage`); later steps renumbered 6–8.
+- **2026-10-30** — Added Step 4a (restore old link icons). Found that Step 4's email link differs from the old site's address.
+- **2026-10-30** — Step 4a: dropped the gold hover for theme-aware gray → full-contrast; Resume got a custom rounded-square document icon. Done.
 - **2026-10-30** — Step 5 approved with `next-themes` (considered hand-writing the theme script from Tailwind's docs instead).
