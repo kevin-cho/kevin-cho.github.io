@@ -143,6 +143,13 @@ Each step is reviewed and approved on its own before it's implemented.
 - **Requirement:** the new site live at a Vercel preview URL (not yet on `kevincho.ca`).
 - **Why:** See it on the real host before touching the domain.
 - **How:** Commit on `next-rewrite` (no Claude attribution) and push. Kevin signs in to vercel.com with GitHub and imports the repo; Vercel auto-detects Next.js and builds a preview for the branch.
+- **Detailed steps (2026-10-30):**
+  1. ✅ Commit and push `next-rewrite` (`77f985a`).
+  2. ✅ Kevin: sign in at vercel.com with GitHub (Hobby plan, free) → **Add New → Project** → install the Vercel GitHub app with access to **only** `kevin-cho/kevin-cho.github.io` → **Import**. Framework preset: Next.js (auto-detected); leave build settings and root directory as defaults; no environment variables.
+  3. ✅ **Heads-up (happened as expected: the `master` build failed with "No Next.js version detected"; Application Preset had to be changed from "Other" to "Next.js" on import):** the first deployment Vercel makes is from the repo's default branch, `master` (the old static site). That's harmless: it only lives at a `*.vercel.app` address, and `kevincho.ca` is untouched. Vercel then builds a **preview** for every push to other branches.
+  4. ✅ Pin Node 24 for Vercel by adding `"engines": { "node": "24.x" }` to `package.json` (Vercel reads this, not `.nvmrc`). Committing and pushing this also triggers the first `next-rewrite` preview build.
+  5. Open the preview URL from the Vercel dashboard (or the commit's status on GitHub) and check the site like Step 7.
+  - Don't add domains or change the production branch yet; that's the later domain switch-over plan.
 
 ---
 
@@ -182,3 +189,4 @@ Each step is reviewed and approved on its own before it's implemented.
 - **2026-10-30** — Step 6: apps list built on the home page (hidden while empty); README rewritten; page description updated to "Senior Software Engineer".
 - **2026-10-30** — Apps move from subdomains (`todo.kevincho.ca`) to paths (`kevincho.ca/todo`) via Next.js Multi-Zones; routing gets set up with the first app. README and `apps.ts` updated to match.
 - **2026-10-30** — Step 7: lint and production build pass (all routes static); production build checked in the browser at desktop and phone widths.
+- **2026-10-30** — Step 8: Vercel project imported (team "Kevin Cho"); first `master` build failed as expected; pinned Node 24 via `engines` and pushed to trigger the `next-rewrite` preview.
