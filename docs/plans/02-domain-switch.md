@@ -1,6 +1,6 @@
 # Plan 02: Switch kevincho.ca to the new site on Vercel
 
-**Status:** In progress (Steps 1–5 done; Step 6 next) — **new site is live on kevincho.ca** · **Branch:** `master` (merged from `next-rewrite`) · **Started:** 2026-10-30
+**Status:** ✅ Done (2026-10-31) — **new site is live on kevincho.ca** · **Branch:** `master` (merged from `next-rewrite`) · **Started:** 2026-10-30
 
 ## Context
 Plan 01 built the new Next.js site on the `next-rewrite` branch and deployed it as a Vercel preview. `kevincho.ca` still serves the old site from `master` via GitHub Pages. This plan makes the new site live on `kevincho.ca`, merges it into `master`, and retires GitHub Pages — with **no downtime** and without breaking the domain's email.
@@ -65,11 +65,12 @@ Each step is reviewed and approved on its own before it's carried out. Steps mar
 - **How:** Claude opens a pull request `next-rewrite` → `master` (with Kevin's OK); Kevin reviews and merges it on GitHub. Then (Kevin, in Vercel) set the production branch back to `master`, and confirm a production deployment from `master` succeeds.
 - **Verify (Claude):** `kevincho.ca` still serves the new site from the `master` deployment.
 - **Result (2026-10-31):** `gh` isn't installed, so Claude prepared a prefilled GitHub "new pull request" link; Kevin opened PR #15 (`next-rewrite` → `master`), merged it (`4d0f078`), deleted `next-rewrite` on GitHub, and set Vercel's production branch back to `master`. `master` now matches `next-rewrite` exactly; GitHub had also added a "Delete CNAME" commit (`203a1a4`) to `master` when the Pages custom domain was removed. Claude deleted the local `next-rewrite` branch and pushed this plan update to `master` to trigger the production build.
+- **Verified (2026-10-31):** pushing `c7a3d07` to `master` built production successfully. From Vercel, `https://kevincho.ca` serves the new site (200), the resume PDF loads (200), and `www` redirects (308) to `https://kevincho.ca/`.
 
-## Step 6: Clean up ⏳ Next
-- Delete the `next-rewrite` branch (local and GitHub) once merged.
-- Update `README.md`, Plan 01's "Later plans", and this plan's status.
-- **Decision for Kevin:** keep the repo name `kevin-cho.github.io` or rename it (e.g. `kevincho.ca`); the name no longer means anything once Pages is off. Renaming is safe — GitHub redirects the old URL, and Vercel follows the rename — but optional.
+## Step 6: Clean up ✅ Done
+- ✅ Delete the `next-rewrite` branch (Kevin deleted it on GitHub; Claude deleted the local copy).
+- ✅ Update Plan 01's "Later plans" (domain switch marked done). `README.md` already describes Vercel hosting, nothing to change.
+- ✅ **Repo renamed (decided):** Kevin renamed the GitHub repo from `kevin-cho.github.io` to **`kevincho.ca`** (the old name only mattered for GitHub Pages; renaming also frees the `kevin-cho.github.io` user-site name for future use). GitHub redirects the old URL (checked: 301 → `github.com/kevin-cho/kevincho.ca`). Claude pointed the local `origin` remote at `git@github.com:kevin-cho/kevincho.ca.git`. The local folder keeps its old name. Older mentions of `kevin-cho.github.io` in these docs are left as history.
 
 ---
 
@@ -89,3 +90,4 @@ Each step is reviewed and approved on its own before it's carried out. Steps mar
 - **2026-10-31** — Step 4: `kevincho.ca` was also removed from GitHub's *account-level* verified domains (github.com/settings/pages). Harmless: verification only stops other GitHub users from attaching the domain to their Pages sites, which requires DNS pointing at GitHub, and DNS now points at Vercel. Re-adding it later would need a GitHub TXT record in GoDaddy DNS; not needed.
 - **2026-10-31** — Step 4 done: GitHub Pages turned off.
 - **2026-10-31** — Step 5 done: merged via PR #15; Vercel production follows `master` again.
+- **2026-10-31** — Step 6 done: repo renamed to `kevincho.ca`; local remote updated. Plan 02 complete.

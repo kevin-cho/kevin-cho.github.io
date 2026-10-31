@@ -155,7 +155,7 @@ Each step is reviewed and approved on its own before it's implemented.
 
 ## Later plans (not in this one)
 - Design and content for the portal.
-- Switch `kevincho.ca` DNS from GitHub Pages to Vercel, merge to `master`, turn off GitHub Pages.
+- ~~Switch `kevincho.ca` DNS from GitHub Pages to Vercel, merge to `master`, turn off GitHub Pages.~~ Done in [Plan 02](02-domain-switch.md) (2026-10-31).
 - New analytics (e.g. Vercel Analytics) to replace the dead Google one.
 - First app (new repo) + backend choices (database, auth), its base path (e.g. `/todo`), and the Multi-Zones rewrite in this repo (or Vercel Microfrontends).
 
