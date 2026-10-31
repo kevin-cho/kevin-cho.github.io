@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "next-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "export NVM_DIR=\"$HOME/.nvm\"; . \"$NVM_DIR/nvm.sh\"; nvm use >/dev/null; npm run dev"],
+      "port": 3000
+    },
+    {
+      "name": "next-start",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "export NVM_DIR=\"$HOME/.nvm\"; . \"$NVM_DIR/nvm.sh\"; nvm use >/dev/null; npm run start -- -p 3001"],
+      "port": 3001
+    }
+  ]
+}
