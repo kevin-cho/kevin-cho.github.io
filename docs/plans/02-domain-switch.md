@@ -58,6 +58,7 @@ Each step is reviewed and approved on its own before it's carried out. Steps mar
 - **How (Kevin, in GitHub):** repo **Settings → Pages** → remove the custom domain if one is shown, and set the source to **None** / unpublish.
 - **Verify (Claude):** `kevin-cho.github.io` no longer serves the site; `kevincho.ca` still serves the new one.
 - **Result (2026-10-31):** Kevin removed the custom domain and unpublished Pages in the repo settings. GitHub now returns 404 for `kevin-cho.github.io` and for `kevincho.ca` on its servers; Vercel returns 200. This Mac still had GitHub's addresses cached, so it showed the 404 until the cache was flushed (`sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`) or expired.
+- **Follow-up (2026-10-31):** "Unpublish site" only took the site offline; Pages stayed enabled with `master` as its source, so every push started a failing "pages build and deployment" run (and a failure email). Kevin set **Build and deployment → Branch** to **None**; GitHub now reports `has_pages: false`. Lesson: to fully turn off Pages, set the branch to None, not just unpublish.
 
 ## Step 5: Merge `next-rewrite` into `master` ✅ Done (PR #15, merge `4d0f078`)
 - **Requirement:** `master` contains the new site; Vercel's production branch is `master` again.
@@ -91,3 +92,4 @@ Each step is reviewed and approved on its own before it's carried out. Steps mar
 - **2026-10-31** — Step 4 done: GitHub Pages turned off.
 - **2026-10-31** — Step 5 done: merged via PR #15; Vercel production follows `master` again.
 - **2026-10-31** — Step 6 done: repo renamed to `kevincho.ca`; local remote updated. Plan 02 complete.
+- **2026-10-31** — Follow-up: GitHub Pages fully disabled (branch set to None) to stop failing Pages builds after each push.
